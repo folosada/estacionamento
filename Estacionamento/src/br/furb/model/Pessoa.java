@@ -11,4 +11,8 @@ package br.furb.model;
  */
 public class Pessoa {
     
+    public static void main(String[] args) {
+        
+    }
+    
 }
