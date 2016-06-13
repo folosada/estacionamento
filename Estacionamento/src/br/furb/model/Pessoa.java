@@ -12,7 +12,7 @@ package br.furb.model;
 public class Pessoa {
     
     public static void main(String[] args) {
-        System.out.println("teste");
+        System.out.println("teste 2.0");
     }
     
 }
