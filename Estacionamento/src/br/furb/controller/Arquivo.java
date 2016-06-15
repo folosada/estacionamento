@@ -53,11 +53,13 @@ public class Arquivo {
             Pessoa pessoa = (Pessoa) info;
             arquivo = Paths.get(caminhoPessoa + separador + pessoa.getCpf());
             oos = new ObjectOutputStream(new FileOutputStream(arquivo.toString()));
+            oos.writeObject(pessoa);
             oos.close();
         } else if(info instanceof Veiculo){
             Veiculo veiculo = (Veiculo) info;
             arquivo = Paths.get(caminhoPessoa + separador + veiculo.getPlaca());
             oos = new ObjectOutputStream(new FileOutputStream(arquivo.toString()));
+            oos.writeObject(veiculo);
             oos.close();
         }
     }
@@ -65,7 +67,6 @@ public class Arquivo {
     public <T> T recuperar(T info, String caminho) throws IOException, ClassNotFoundException{
         ObjectInputStream ois;
         Path arquivo = Paths.get(caminho);
-        //java.io.EOFException
         if (info instanceof Pessoa){
             ois = new ObjectInputStream(new FileInputStream(arquivo.toString()));
             Pessoa pessoa = (Pessoa) ois.readObject();
