@@ -5,14 +5,26 @@
  */
 package br.furb.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author flaviolosada
  */
-public class Pessoa {
-    
-    public static void main(String[] args) {
-        System.out.println("teste 2.0");
+public class Pessoa implements Serializable{
+    private String cpf;
+
+    public Pessoa() {}
+
+    public String getCpf() {
+        return cpf;
     }
-    
+
+    public void setCpf(String cpf) {
+        if (cpf != null && !cpf.trim().equals("")){
+            this.cpf = cpf;
+        } else {
+            throw new IllegalArgumentException("CPF Inválida.");
+        }
+    }
 }
