@@ -69,9 +69,9 @@ public class Arquivo {
         Path arquivo = Paths.get(caminho);
         if (info instanceof PessoaModel){
             ois = new ObjectInputStream(new FileInputStream(arquivo.toString()));
-            PessoaModel pessoa = (PessoaModel) ois.readObject();
+            T pessoa = (T) ois.readObject();
             ois.close();
-            return (T) pessoa;
+            return pessoa;
         } else if(info instanceof Veiculo){
             ois = new ObjectInputStream(new FileInputStream(arquivo.toString()));
             Veiculo veiculo = (Veiculo) ois.readObject();
