@@ -6,7 +6,7 @@
 package br.furb;
 
 import br.furb.controller.Arquivo;
-import br.furb.model.Pessoa;
+import br.furb.model.PessoaModel;
 import java.io.IOException;
 
 /**
@@ -15,12 +15,12 @@ import java.io.IOException;
  */
 public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException{
-        Pessoa pessoa = new Pessoa();
+        PessoaModel pessoa = new PessoaModel();
         pessoa.setCpf("123");
         Arquivo arquivo = Arquivo.getInstance();
         arquivo.salvar(pessoa);
         
-        Pessoa p = arquivo.recuperar(pessoa, "C:\\Estacionameto\\Pessoa\\123");
+        PessoaModel p = arquivo.recuperar(pessoa, "C:\\Estacionameto\\Pessoa\\123");
         System.out.println(p.getCpf());
     }
 }

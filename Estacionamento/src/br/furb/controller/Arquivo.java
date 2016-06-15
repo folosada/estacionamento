@@ -5,7 +5,7 @@
  */
 package br.furb.controller;
 
-import br.furb.model.Pessoa;
+import br.furb.model.PessoaModel;
 import br.furb.model.Veiculo;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -49,8 +49,8 @@ public class Arquivo {
         ObjectOutputStream oos;
         Path arquivo;
         
-        if (info instanceof Pessoa){
-            Pessoa pessoa = (Pessoa) info;
+        if (info instanceof PessoaModel){
+            PessoaModel pessoa = (PessoaModel) info;
             arquivo = Paths.get(caminhoPessoa + separador + pessoa.getCpf());
             oos = new ObjectOutputStream(new FileOutputStream(arquivo.toString()));
             oos.writeObject(pessoa);
@@ -67,9 +67,9 @@ public class Arquivo {
     public <T> T recuperar(T info, String caminho) throws IOException, ClassNotFoundException{
         ObjectInputStream ois;
         Path arquivo = Paths.get(caminho);
-        if (info instanceof Pessoa){
+        if (info instanceof PessoaModel){
             ois = new ObjectInputStream(new FileInputStream(arquivo.toString()));
-            Pessoa pessoa = (Pessoa) ois.readObject();
+            PessoaModel pessoa = (PessoaModel) ois.readObject();
             ois.close();
             return (T) pessoa;
         } else if(info instanceof Veiculo){
