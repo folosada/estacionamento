@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author Gabriel Bernardi
  */
-public class Veiculo implements Serializable{
+public class VeiculoModel implements Serializable{
     private String placa;
 
     public String getPlaca() {
