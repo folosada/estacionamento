@@ -5,26 +5,26 @@
  */
 package br.furb.model;
 
-import java.io.Serializable;
+import br.furb.Pessoa;
+import br.furb.arquivo.Arquivo;
+import java.io.IOException;
 
 /**
  *
- * @author flaviolosada
+ * @author Flávio e Carol
  */
-public class PessoaModel implements Serializable{
-    private String cpf;
+public class PessoaModel implements Model {
+    
+    private final Arquivo arquivo = Arquivo.getInstance();
 
-    public PessoaModel() {}
-
-    public String getCpf() {
-        return cpf;
+    @Override
+    public void salvar(Object info) throws Exception {
+        arquivo.salvar(info, ((Pessoa) info).getCpf());
     }
 
-    public void setCpf(String cpf) {
-        if (cpf != null && !cpf.trim().equals("")){
-            this.cpf = cpf;
-        } else {
-            throw new IllegalArgumentException("CPF Inválida.");
-        }
+    @Override
+    public Object recuperar(String chave) throws Exception {
+        return arquivo.recuperar(chave, new Pessoa().getClass().getName());
     }
+    
 }

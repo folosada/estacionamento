@@ -5,48 +5,25 @@
  */
 package br.furb.model;
 
-import java.io.Serializable;
-import java.util.Date;
+import br.furb.Estadia;
+import br.furb.arquivo.Arquivo;
 
 /**
  *
- * @author Gabriel Bernardi
+ * @author Flávio e Carol
  */
-public class EstadiaModel implements Serializable{
-    private PessoaModel pessoa;
-    private VeiculoModel veiculo;
-    private Date dataEntrada;
-    private Date dataSaida;
+public class EstadiaModel implements Model {
     
-    public PessoaModel getPessoa() {
-        return pessoa;
+    private final Arquivo arquivo = Arquivo.getInstance();
+
+    @Override
+    public void salvar(Object info) throws Exception {
+         arquivo.salvar(info, ((Estadia) info).getChave());
     }
 
-    public void setPessoa(PessoaModel pessoa) {
-        this.pessoa = pessoa;
+    @Override
+    public Object recuperar(String chave) throws Exception {
+        return arquivo.recuperar(chave, new Estadia().getClass().getName());
     }
-
-    public VeiculoModel getVeiculo() {
-        return veiculo;
-    }
-
-    public void setVeiculo(VeiculoModel veiculo) {
-        this.veiculo = veiculo;
-    }
-
-    public Date getDataEntrada() {
-        return dataEntrada;
-    }
-
-    public void setDataEntrada(Date dataEntrada) {
-        this.dataEntrada = dataEntrada;
-    }
-
-    public Date getDataSaida() {
-        return dataSaida;
-    }
-
-    public void setDataSaida(Date dataSaida) {
-        this.dataSaida = dataSaida;
-    }
+    
 }

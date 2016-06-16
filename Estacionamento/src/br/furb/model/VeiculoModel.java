@@ -5,24 +5,25 @@
  */
 package br.furb.model;
 
-import java.io.Serializable;
+import br.furb.Veiculo;
+import br.furb.arquivo.Arquivo;
 
 /**
  *
- * @author Gabriel Bernardi
+ * @author Flávio e Carol
  */
-public class VeiculoModel implements Serializable{
-    private String placa;
+public class VeiculoModel implements Model {
+    
+    private final Arquivo arquivo = Arquivo.getInstance();
 
-    public String getPlaca() {
-        return placa;
+    @Override
+    public void salvar(Object info) throws Exception {
+        arquivo.salvar(info, ((Veiculo) info).getPlaca());
     }
 
-    public void setPlaca(String placa) {
-        if (placa != null && !placa.trim().equals("")){
-            this.placa = placa;
-        } else {
-            throw new IllegalArgumentException("Placa Inválida.");
-        }
+    @Override
+    public Object recuperar(String chave) throws Exception {
+        return arquivo.recuperar(chave, new Veiculo().getClass().getName());
     }
+    
 }

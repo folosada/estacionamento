@@ -5,9 +5,9 @@
  */
 package br.furb.arquivo;
 
-import br.furb.model.EstadiaModel;
-import br.furb.model.PessoaModel;
-import br.furb.model.VeiculoModel;
+import br.furb.Estadia;
+import br.furb.Pessoa;
+import br.furb.Veiculo;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -31,14 +31,16 @@ public class Arquivo {
     private static final Arquivo ARQUIVO = new Arquivo();
     private static FileSystem system = FileSystems.getDefault();
     private static final String separador = system.getSeparator() + system.getSeparator();
+    // Estes caminhos devem ficar na classe Model e não  aqui, cada classe Model vai ter que ter o seu caminho padrão
     private static final Path caminhoPessoa = Paths.get("C:", separador, "Estacionameto", separador, "Pessoa");
     private static final Path caminhoVeiculo = Paths.get("C:", separador, "Estacionameto", separador, "Veiculo");
     private static final Path caminhoEstadia = Paths.get("C:", separador, "Estacionameto", separador, "Estadia");
     private static Path caminhoDadosArquivos = Paths.get("C:", separador, "Estacionameto");
 
-    public static Arquivo getInstance() throws IOException{
-        Arquivo.criarDiretorio();
-        Arquivo.criarArquivoPrincipal();
+    public static Arquivo getInstance() {
+        //Não pode criar o diretório toda vez que chamar o getInstance, isto deve ficar em outro lugar
+        //Arquivo.criarDiretorio();
+        //Arquivo.criarArquivoPrincipal();
         return Arquivo.ARQUIVO;
     }
     
@@ -64,25 +66,25 @@ public class Arquivo {
         caminhoDadosArquivos = arquivo;
     }
     
-    public <T> void salvar(T info) throws IOException{
+    public <T> void salvar(T info, String tipoDado) throws IOException{
         ObjectOutputStream oos;
         Path arquivo = null;
         BufferedWriter bw = new BufferedWriter(new FileWriter(caminhoDadosArquivos.toString(), true));
-        
-        if (info instanceof PessoaModel){
-            PessoaModel pessoa = (PessoaModel) info;
+        // remover estas dependencias de classes, aqui deve apenas receber o objeto e gravar no arquivo
+        if (info instanceof Pessoa){
+            Pessoa pessoa = (Pessoa) info;
             arquivo = Paths.get(caminhoPessoa + separador + pessoa.getCpf());
             oos = new ObjectOutputStream(new FileOutputStream(arquivo.toString()));
             oos.writeObject(pessoa);
             oos.close();
-        } else if(info instanceof VeiculoModel){
-            VeiculoModel veiculo = (VeiculoModel) info;
+        } else if(info instanceof Veiculo){
+            Veiculo veiculo = (Veiculo) info;
             arquivo = Paths.get(caminhoVeiculo + separador + veiculo.getPlaca());
             oos = new ObjectOutputStream(new FileOutputStream(arquivo.toString()));
             oos.writeObject(veiculo);
             oos.close();
-        } else if(info instanceof EstadiaModel){
-            EstadiaModel e = (EstadiaModel) info;
+        } else if(info instanceof Estadia){
+            Estadia e = (Estadia) info;
             arquivo = Paths.get(caminhoEstadia + separador 
                                 + e.getPessoa().getCpf()
                                 + e.getVeiculo().getPlaca());
@@ -97,27 +99,21 @@ public class Arquivo {
         bw.close();
     }
     
-    public <T> T recuperar(T info, String caminho) throws IOException, ClassNotFoundException{
+    public <T> T recuperar(String chave, String tipoDado) throws IOException, ClassNotFoundException{
         ObjectInputStream ois;
-        Path arquivo = Paths.get(caminho);
-        if (info instanceof PessoaModel){
-            ois = new ObjectInputStream(new FileInputStream(arquivo.toString()));
-            T pessoa = (T) ois.readObject();
-            ois.close();
-            return pessoa;
-        } else if(info instanceof VeiculoModel){
-            ois = new ObjectInputStream(new FileInputStream(arquivo.toString()));
-            T veiculo = (T) ois.readObject();
-            ois.close();
-            return veiculo;
-        } else if(info instanceof EstadiaModel){
-            ois = new ObjectInputStream(new FileInputStream(arquivo.toString()));
-            T estadia = (T) ois.readObject();
-            ois.close();
-            return estadia;
+        String caminho = "";
+        if ("Pessoa".equalsIgnoreCase(tipoDado)) {
+            caminho = caminhoPessoa + separador + chave + ".dat";
+        } else if ("Veiculo".equalsIgnoreCase(tipoDado)) {
+            caminho = caminhoVeiculo + separador + chave + ".dat";
+        } else if ("Estadia".equalsIgnoreCase(tipoDado)) {
+            caminho = caminhoEstadia + separador + chave + ".dat";
         }
-        
-        return null;
+        Path arquivo = Paths.get(caminho);        
+        ois = new ObjectInputStream(new FileInputStream(arquivo.toString()));
+        T entidade = (T) ois.readObject();
+        ois.close();
+        return entidade;                
     }
     
     public <T> List<T> recuperar(){
