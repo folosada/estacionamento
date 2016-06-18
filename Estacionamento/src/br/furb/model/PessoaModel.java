@@ -24,7 +24,7 @@ public class PessoaModel implements Model {
 
     @Override
     public Object recuperar(String chave) throws Exception {
-        return arquivo.recuperar(chave, new Pessoa().getClass().getName());
+        return arquivo.recuperar(chave, "Pessoa");
     }
     
 }

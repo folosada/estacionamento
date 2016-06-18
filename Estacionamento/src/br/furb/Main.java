@@ -5,8 +5,12 @@
  */
 package br.furb;
 
-import br.furb.arquivo.Arquivo;
+import br.furb.model.EstadiaModel;
+import br.furb.model.Model;
+import br.furb.model.PessoaModel;
+import br.furb.model.VeiculoModel;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -14,23 +18,42 @@ import java.util.Date;
  * @author Gabriel Bernardi
  */
 public class Main {
-    public static void main(String[] args) throws IOException, ClassNotFoundException{
-        Arquivo arquivo = Arquivo.getInstance();
-        /*
+    public static void main(String[] args) throws IOException, ClassNotFoundException, Exception{
         Pessoa pessoa = new Pessoa();
-        pessoa.setCpf("123");
-        arquivo.salvar(pessoa);
-        
-        Veiculo veiculo = new Veiculo();
-        veiculo.setPlaca("placa123");
-        arquivo.salvar(veiculo);
-        
-        Estadia e = new Estadia();
-        e.setPessoa(pessoa);
-        e.setVeiculo(veiculo);
-        e.setDataEntrada(new Date("11/06/2016"));
-        e.setDataSaida(new Date("14/06/2016"));
-        arquivo.salvar(e);
-        */
+    	Model pessoaModel = new PessoaModel();
+    	pessoa.setCpf("123");
+    	pessoaModel.salvar(pessoa);
+    	
+    	Veiculo veiculo = new Veiculo();
+    	VeiculoModel veiculoModel = new VeiculoModel();
+    	veiculo.setPlaca("pla123");
+    	veiculoModel.salvar(veiculo);
+    	
+    	Model estadiaModel = new EstadiaModel();
+    	
+    	SimpleDateFormat forE = new SimpleDateFormat("dd/MM/yyyy");
+    	Date dataE = new Date("01/01/2016");
+    	SimpleDateFormat forS = new SimpleDateFormat("dd/MM/yyyy");
+    	Date dataS = new Date("01/01/2016");
+    	
+    	Estadia estadia = new Estadia();
+    	estadia.setPessoa(pessoa);
+    	estadia.setVeiculo(veiculo);
+    	estadia.setDataEntrada(new Date(forE.format(dataE)));
+//    	estadia.setDataSaida(new Date(forS.format(dataS)));
+    	estadiaModel.salvar(estadia);
+    	
+//    	Estadia e = (Estadia) estadiaModel.recuperar(estadia.getId());
+//    	System.out.println("CPF: " + e.getPessoa().getCpf()
+//    					  + "\nPlaca: " + e.getVeiculo().getPlaca()
+//    					  + "\nID Estadia: " + e.getId()
+//    					  + "\nData Entrada: " + e.getDataEntrada()
+//    					  + "\nData Saida: " + e.getDataSaida());
+    	
+//    	Estadia estadia2 = new Estadia();
+//    	estadiaModel.salvar(estadia2);
+//    	
+//    	Estadia estadia3= new Estadia();
+//    	estadiaModel.salvar(estadia3);
     }
 }

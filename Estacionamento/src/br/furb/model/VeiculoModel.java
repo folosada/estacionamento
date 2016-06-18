@@ -23,7 +23,7 @@ public class VeiculoModel implements Model {
 
     @Override
     public Object recuperar(String chave) throws Exception {
-        return arquivo.recuperar(chave, new Veiculo().getClass().getName());
+        return arquivo.recuperar(chave, "Veiculo");
     }
     
 }

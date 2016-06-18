@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author flaviolosada
  */
-public class Pessoa implements Serializable{
+public class Pessoa<T> implements Serializable, Comparable<T>{
     private String cpf;
 
     public Pessoa() {}
@@ -26,5 +26,15 @@ public class Pessoa implements Serializable{
         } else {
             throw new IllegalArgumentException("CPF Inválida.");
         }
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return this.getCpf().equals(((String) obj));
+    }
+
+    @Override
+    public int compareTo(T o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

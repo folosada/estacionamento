@@ -6,16 +6,14 @@
 package br.furb;
 
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
  *
  * @author Gabriel Bernardi
  */
-public class Estadia implements Serializable{
+public class Estadia<T> implements Serializable, Comparable<T>{
     private Pessoa pessoa;
     private Veiculo veiculo;
     private Date dataEntrada;
@@ -58,5 +56,16 @@ public class Estadia implements Serializable{
         return this.getPessoa().getCpf() + "_" + 
                 this.getVeiculo().getPlaca() + "_" + 
                 sdf.format(this.getDataEntrada());
-    }            
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.getChave().equals((String) obj)
+                && this.getDataSaida() == null;
+    }
+
+    @Override
+    public int compareTo(T o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

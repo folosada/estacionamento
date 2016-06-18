@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author Gabriel Bernardi
  */
-public class Veiculo implements Serializable{
+public class Veiculo<T> implements Serializable, Comparable<T>{
     private String placa;
 
     public String getPlaca() {
@@ -24,5 +24,15 @@ public class Veiculo implements Serializable{
         } else {
             throw new IllegalArgumentException("Placa Inválida.");
         }
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return this.getPlaca().equals(((String) obj));
+    }
+
+    @Override
+    public int compareTo(T o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

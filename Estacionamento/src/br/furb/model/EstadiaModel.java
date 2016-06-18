@@ -23,7 +23,7 @@ public class EstadiaModel implements Model {
 
     @Override
     public Object recuperar(String chave) throws Exception {
-        return arquivo.recuperar(chave, new Estadia().getClass().getName());
+        return arquivo.recuperar(chave, "Estadia");
     }
     
 }
