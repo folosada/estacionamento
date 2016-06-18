@@ -101,6 +101,4 @@ public class Estadia<T> implements Serializable, Comparable<T>{
         
         return 0;
     }
-    
-    public void test(){}
 }
