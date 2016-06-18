@@ -12,9 +12,18 @@ import java.io.Serializable;
  * @author flaviolosada
  */
 public class Pessoa<T> implements Serializable, Comparable<T>{
+    private String nome;
     private String cpf;
 
     public Pessoa() {}
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     public String getCpf() {
         return cpf;
@@ -35,6 +44,6 @@ public class Pessoa<T> implements Serializable, Comparable<T>{
 
     @Override
     public int compareTo(T o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.nome.compareTo(((Pessoa) o).getNome());
     }
 }

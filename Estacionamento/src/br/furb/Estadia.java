@@ -7,6 +7,7 @@ package br.furb;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -64,6 +65,14 @@ public class Estadia<T> implements Serializable, Comparable<T>{
                      sdf.format(this.getDataEntrada());
     }
     
+    public double calcular(){
+        try {
+            return 0;
+        } catch (Exception e) {
+            throw new IllegalArgumentException("A Data de Saída deve ser informada.");
+        }
+    }
+    
     @Override
     public boolean equals(Object obj) {
         return this.chave.equals((String) obj)
@@ -72,6 +81,13 @@ public class Estadia<T> implements Serializable, Comparable<T>{
 
     @Override
     public int compareTo(T o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        Estadia estadia = (Estadia) o;
+//        if (this.dataEntrada.compareTo(estadia.getDataEntrada()) == 0){
+//            if (this.pessoa.compareTo(estadia.getPessoa()) == 0){
+//                
+//            }
+//        }
+        
+        return 0;
     }
 }
