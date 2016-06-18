@@ -57,7 +57,7 @@ public class Estadia<T> implements Serializable, Comparable<T>{
         return this.chave;
     }
 
-    public void setChave() {
+    private void setChave() {
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
         this.chave = this.getPessoa().getCpf() + "_" + 
                      this.getVeiculo().getPlaca() + "_" + 

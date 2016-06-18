@@ -15,6 +15,7 @@ import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,7 +73,22 @@ public class Arquivo<T> {
         return entidade;                
     }
     
-    public List<T> recuperar(){
-        return null;
+    public List<T> recuperarEstadias() throws IOException, ClassNotFoundException{
+        List<T> listEstadias = new ArrayList<>();
+        Path arquivo = Paths.get(caminhoEstadia.toString()); 
+        File file = new File(caminhoEstadia.toString());
+	File afile[] = file.listFiles();
+        ObjectInputStream ois;
+	int i = 0;
+        
+	for (int j = afile.length; i < j; i++) {
+            File arquivos = afile[i];
+            ois = new ObjectInputStream(new FileInputStream(arquivo.toString() + separador + arquivos.getName()));
+            T estadia = (T) ois.readObject();
+            listEstadias.add(estadia);
+            ois.close();
+	}
+        
+        return listEstadias;
     }
 }
