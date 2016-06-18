@@ -65,9 +65,20 @@ public class Estadia<T> implements Serializable, Comparable<T>{
                      sdf.format(this.getDataEntrada());
     }
     
-    public double calcular(){
+    public Double calcular(){
         try {
-            return 0;
+            Calendar dataInicial = Calendar.getInstance();
+            dataInicial.setTime(dataEntrada);
+            Calendar dataFinal = Calendar.getInstance();
+            dataFinal.setTime(dataSaida);
+            
+            long diferenca = System.currentTimeMillis() - dataInicial.getTimeInMillis();
+            
+            //Minutos só para teste
+            long diferencaMin = diferenca / (60 * 1000);
+            long diferencaHoras = diferenca / (60 * 60 * 1000);
+            
+            return diferencaMin * 4.5;
         } catch (Exception e) {
             throw new IllegalArgumentException("A Data de Saída deve ser informada.");
         }
@@ -76,7 +87,7 @@ public class Estadia<T> implements Serializable, Comparable<T>{
     @Override
     public boolean equals(Object obj) {
         return this.chave.equals((String) obj)
-                && this.getDataSaida() == null;
+                && this.getDataSaida() != null;
     }
 
     @Override
@@ -90,4 +101,6 @@ public class Estadia<T> implements Serializable, Comparable<T>{
         
         return 0;
     }
+    
+    public void test(){}
 }
