@@ -14,6 +14,7 @@ import java.util.Date;
  * @author Gabriel Bernardi
  */
 public class Estadia<T> implements Serializable, Comparable<T>{
+    private String chave;
     private Pessoa pessoa;
     private Veiculo veiculo;
     private Date dataEntrada;
@@ -41,6 +42,7 @@ public class Estadia<T> implements Serializable, Comparable<T>{
 
     public void setDataEntrada(Date dataEntrada) {
         this.dataEntrada = dataEntrada;
+        this.setChave();
     }
 
     public Date getDataSaida() {
@@ -52,15 +54,19 @@ public class Estadia<T> implements Serializable, Comparable<T>{
     }
     
     public String getChave() {
-        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
-        return this.getPessoa().getCpf() + "_" + 
-                this.getVeiculo().getPlaca() + "_" + 
-                sdf.format(this.getDataEntrada());
+        return this.chave;
     }
 
+    public void setChave() {
+        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
+        this.chave = this.getPessoa().getCpf() + "_" + 
+                     this.getVeiculo().getPlaca() + "_" + 
+                     sdf.format(this.getDataEntrada());
+    }
+    
     @Override
     public boolean equals(Object obj) {
-        return this.getChave().equals((String) obj)
+        return this.chave.equals((String) obj)
                 && this.getDataSaida() == null;
     }
 

@@ -31,18 +31,14 @@ public class Main {
     	
     	Model estadiaModel = new EstadiaModel();
     	
-    	SimpleDateFormat forE = new SimpleDateFormat("dd/MM/yyyy");
-    	Date dataE = new Date("01/01/2016");
-    	SimpleDateFormat forS = new SimpleDateFormat("dd/MM/yyyy");
-    	Date dataS = new Date("01/01/2016");
-    	
     	Estadia estadia = new Estadia();
     	estadia.setPessoa(pessoa);
     	estadia.setVeiculo(veiculo);
-    	estadia.setDataEntrada(new Date(forE.format(dataE)));
-//    	estadia.setDataSaida(new Date(forS.format(dataS)));
+    	estadia.setDataEntrada(new Date());
+//    	estadia.setDataSaida(new Date());
     	estadiaModel.salvar(estadia);
     	
+        estadiaModel.salvar(estadia);
 //    	Estadia e = (Estadia) estadiaModel.recuperar(estadia.getId());
 //    	System.out.println("CPF: " + e.getPessoa().getCpf()
 //    					  + "\nPlaca: " + e.getVeiculo().getPlaca()

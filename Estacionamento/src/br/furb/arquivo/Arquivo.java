@@ -37,8 +37,8 @@ public class Arquivo<T> {
             Path arquivo = Paths.get(caminhoEstadia.toString() + separador + chave);
             oos = new ObjectOutputStream(new FileOutputStream(arquivo.toString()));
             oos.writeObject(info);
+            oos.close();
         }
-        oos.close();
     }
     
     //Feito só para demonstração
