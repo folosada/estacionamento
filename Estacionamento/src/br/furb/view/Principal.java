@@ -93,8 +93,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_estadiaJButtonActionPerformed
 
     private void pessoaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pessoaJButtonActionPerformed
-        PessoaView pessoa = new PessoaView();
-        pessoa.setVisible(true);
+        PessoaView pessoaView = new PessoaView();
+        pessoaView.abreJanela();
     }//GEN-LAST:event_pessoaJButtonActionPerformed
 
     /**

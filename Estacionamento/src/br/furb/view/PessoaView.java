@@ -5,7 +5,14 @@
  */
 package br.furb.view;
 
+import br.furb.Pessoa;
+import br.furb.controller.PessoaController;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,6 +22,16 @@ public class PessoaView extends javax.swing.JFrame implements View {
     
     public PessoaView() {
         initComponents();
+        DefaultTableModel dtm = new DefaultTableModel();
+        LinkedList<Pessoa> listaPessoas = (LinkedList) this.recuperar();
+        dtm.addColumn("CPF");
+        dtm.addColumn("Nome");
+        for (Pessoa pessoa : listaPessoas) {
+            Object [] row = new Object[2];
+            row[0] = pessoa.getCpf();
+            row[1] = pessoa.getNome();
+            dtm.addRow(row);
+        }
     }
 
     /**
@@ -35,6 +52,7 @@ public class PessoaView extends javax.swing.JFrame implements View {
         pessoasJTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setType(java.awt.Window.Type.POPUP);
 
         lblPessoaNome.setText("Nome");
 
@@ -60,10 +78,7 @@ public class PessoaView extends javax.swing.JFrame implements View {
 
         pessoasJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "CPF", "Nome"
@@ -133,7 +148,7 @@ public class PessoaView extends javax.swing.JFrame implements View {
     }//GEN-LAST:event_cpfJFormattedTextFieldActionPerformed
 
     private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
-        System.out.println(cpfJFormattedTextField.getText());
+        this.salvar(evt);
     }//GEN-LAST:event_salvarJButtonActionPerformed
 
     /**
@@ -184,7 +199,12 @@ public class PessoaView extends javax.swing.JFrame implements View {
 
     @Override
     public void salvar(Object info) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PessoaController pessoaController = new PessoaController();
+        try {
+            pessoaController.salvar(info);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar a pessoa!\n" + ex.getMessage());
+        }
     }
 
     @Override
@@ -194,11 +214,17 @@ public class PessoaView extends javax.swing.JFrame implements View {
 
     @Override
     public List recuperar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PessoaController pessoaController = new PessoaController();
+        try {
+            return pessoaController.recuperar();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao recuperar registros!\n" + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public void abreJanela() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setVisible(true);
     }
 }
