@@ -48,6 +48,11 @@ public class Pessoa implements Serializable, Comparable {
 
     @Override
     public int compareTo(Object o) {
-        return this.nome.compareTo(((Pessoa) o).getNome());
+        int compare = this.nome.compareTo(((Pessoa) o).getNome());
+        if (compare == 0) {
+            compare = this.cpf.compareTo(((Pessoa) o).getCpf());
+        }
+        return compare;
     }
+    
 }

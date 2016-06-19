@@ -10,6 +10,8 @@ import br.furb.controller.PessoaController;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -27,6 +29,17 @@ public class PessoaView extends javax.swing.JDialog implements View {
         super(parent, true);
         initComponents();   
         this.atualizaTabela();
+        pessoasJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (e.getValueIsAdjusting())
+                    return;
+                int selected = pessoasJTable.getSelectedRow();
+                cpfJFormattedTextField.setText((String) pessoasJTable.getValueAt(selected, 0));
+                nomeJTextField.setText((String) pessoasJTable.getValueAt(selected, 0));
+            }
+        });
     }
     
     public PessoaView(java.awt.Frame parent, boolean modal) {
@@ -243,6 +256,7 @@ public class PessoaView extends javax.swing.JDialog implements View {
     public void atualizaTabela() {
         DefaultTableModel dtm = new DefaultTableModel(new String[]{"CPF", "Nome"}, 0);
         LinkedList<Pessoa> pessoas = (LinkedList) this.recuperar();
+        pessoas.sort(null);
         for (Pessoa pessoa : pessoas) {
             dtm.addRow(new String[]{pessoa.getCpf(), pessoa.getNome()});
         }
