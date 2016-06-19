@@ -98,6 +98,7 @@ public class Main {
 //            i++;
 //        }
         
+        
 //    	Estadia e = (Estadia) estadiaModel.recuperar(estadia.getId());
 //    	System.out.println("CPF: " + e.getPessoa().getCpf()
 //    					  + "\nPlaca: " + e.getVeiculo().getPlaca()
