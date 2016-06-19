@@ -6,9 +6,11 @@
 package br.furb.view;
 
 import br.furb.Pessoa;
-import br.furb.controller.PessoaController;
+import br.furb.controller.Controller;
+import br.furb.factory.ParkFactory;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -25,8 +27,8 @@ public class PessoaView extends javax.swing.JDialog implements View {
      * Creates new form PessoaView
      */
     
-    public PessoaView(javax.swing.JFrame parent) {
-        super(parent, true);
+    public PessoaView(Object parent) {
+        super((JFrame) parent, true);
         initComponents();   
         this.atualizaTabela();
         pessoasJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -37,7 +39,7 @@ public class PessoaView extends javax.swing.JDialog implements View {
                     return;
                 int selected = pessoasJTable.getSelectedRow();
                 cpfJFormattedTextField.setText((String) pessoasJTable.getValueAt(selected, 0));
-                nomeJTextField.setText((String) pessoasJTable.getValueAt(selected, 0));
+                nomeJTextField.setText((String) pessoasJTable.getValueAt(selected, 1));
             }
         });
     }
@@ -65,6 +67,8 @@ public class PessoaView extends javax.swing.JDialog implements View {
         salvarJButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setModal(true);
+        setResizable(false);
 
         cpfJLabel.setText("CPF:");
 
@@ -161,11 +165,13 @@ public class PessoaView extends javax.swing.JDialog implements View {
     }//GEN-LAST:event_cpfJFormattedTextFieldActionPerformed
 
     private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
-        Pessoa pessoa = new Pessoa();
-        pessoa.setCpf(cpfJFormattedTextField.getText());
-        pessoa.setNome(nomeJTextField.getText());
-        this.salvar(pessoa);
-        this.atualizaTabela();
+        if (!"   .   .   -  ".equals(cpfJFormattedTextField.getText()) && !"".equals(nomeJTextField.getText())) {
+            Pessoa pessoa = new Pessoa();
+            pessoa.setCpf(cpfJFormattedTextField.getText());
+            pessoa.setNome(nomeJTextField.getText());
+            this.salvar(pessoa);
+            this.atualizaTabela();
+        }
     }//GEN-LAST:event_salvarJButtonActionPerformed
 
     /**
@@ -223,7 +229,7 @@ public class PessoaView extends javax.swing.JDialog implements View {
 
     @Override
     public void salvar(Object info) {
-        PessoaController pessoaController = new PessoaController();
+        Controller pessoaController = ParkFactory.getFactory("Controller").createController();
         try {
             pessoaController.salvar(info);
         } catch (Exception ex) {
@@ -233,12 +239,18 @@ public class PessoaView extends javax.swing.JDialog implements View {
 
     @Override
     public Object recuperar(String chave) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Controller pessoaController = ParkFactory.getFactory("Controller").createController();
+        try {
+            return pessoaController.recuperar(chave);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao recuperar o registro!\n" + chave + "\n" + e.getMessage());
+        }
+        return null;
     }
 
     @Override
     public List recuperar() {
-        PessoaController pessoaController = new PessoaController();
+        Controller pessoaController = ParkFactory.getFactory("Controller").createController();
         try {
             return pessoaController.recuperar();
         } catch (Exception ex) {

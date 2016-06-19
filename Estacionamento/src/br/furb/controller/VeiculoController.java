@@ -5,32 +5,27 @@
  */
 package br.furb.controller;
 
-import br.furb.factory.ParkFactory;
-import br.furb.model.Model;
 import java.util.List;
 
 /**
  *
  * @author flavioomar
  */
-public class PessoaController implements Controller {
+public class VeiculoController implements Controller {
 
     @Override
     public void salvar(Object info) throws Exception {
-        Model pessoaModel = ParkFactory.getFactory("Pessoa").createModel();
-        pessoaModel.salvar(info);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Object recuperar(String chave) throws Exception {
-        Model pessoaModel = ParkFactory.getFactory("Pessoa").createModel();
-        return pessoaModel.recuperar(chave);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public List recuperar() throws Exception {
-        Model pessoaModel = ParkFactory.getFactory("Pessoa").createModel();
-        return pessoaModel.recuperar();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

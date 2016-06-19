@@ -5,6 +5,7 @@
  */
 package br.furb.view;
 
+import br.furb.factory.ParkFactory;
 import br.furb.view.PessoaView;
 import javax.swing.JDialog;
 
@@ -94,8 +95,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_estadiaJButtonActionPerformed
 
     private void pessoaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pessoaJButtonActionPerformed
-        PessoaView pessoaView = new PessoaView(this);
-        pessoaView.abreJanela();
+        View pessoa = ParkFactory.getFactory("Pessoa").createView(this);
+        pessoa.abreJanela();
     }//GEN-LAST:event_pessoaJButtonActionPerformed
 
     /**
