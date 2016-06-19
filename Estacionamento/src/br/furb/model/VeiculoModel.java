@@ -16,11 +16,11 @@ import java.util.List;
  */
 public class VeiculoModel implements Model {
     
-    private static final String caminhoVeiculo = Paths.get("Veiculo").toAbsolutePath().toString();
+    private static final String CAMINHO_VEICULO = Paths.get("Veiculo").toAbsolutePath().toString();
     
     @Override
     public void salvar(Object info) throws Exception {
-        Arquivo.getInstance().salvar(info, ((Veiculo) info).getPlaca(), caminhoVeiculo);
+        Arquivo.getInstance().salvar(info, ((Veiculo) info).getPlaca(), CAMINHO_VEICULO);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class VeiculoModel implements Model {
 
     @Override
     public List recuperar() throws Exception {
-        return Arquivo.getInstance().recuperar(caminhoVeiculo);
+        return Arquivo.getInstance().recuperar(CAMINHO_VEICULO);
     }
     
 }

@@ -32,28 +32,25 @@ public class Arquivo<T> {
     }
     
     public void salvar(T info, String chave, String diretorio) throws IOException{
-        ObjectOutputStream oos = null;
-        if(!existeArquivo(info, diretorio)){
-            Path arquivo = Paths.get(diretorio + separador + chave);
-            oos = new ObjectOutputStream(new FileOutputStream(arquivo.toString()));
-            oos.writeObject(info);
-            oos.close();
-        }
+        Path arquivo = Paths.get(diretorio + separador + chave);
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo.toString()));
+        oos.writeObject(info);
+        oos.close();
     }
     
     //Feito só para demonstração
-    private boolean existeArquivo(T info, String diretorio){
-        File file = new File(diretorio);
-	File afile[] = file.listFiles();
-	int i = 0;
-	for (int j = afile.length; i < j; i++) {
-            File arquivos = afile[i];
-            if (info.equals(arquivos.getName())){
-                return true;
-            }
-	}
-        return false;
-    }
+//    private boolean existeArquivo(T info, String diretorio){
+//        File file = new File(diretorio);
+//	File afile[] = file.listFiles();
+//	int i = 0;
+//	for (int j = afile.length; i < j; i++) {
+//            File arquivos = afile[i];
+//            if (info.equals(arquivos.getName())){
+//                return true;
+//            }
+//	}
+//        return false;
+//    }
     
     public T recuperar(String chave, String diretorio) throws IOException, ClassNotFoundException{
         ObjectInputStream ois;
