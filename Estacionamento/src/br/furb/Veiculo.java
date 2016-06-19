@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author Gabriel Bernardi
  */
-public class Veiculo<T> implements Serializable, Comparable<T>{
+public class Veiculo implements Serializable, Comparable {
     private String nome;
     private String placa;
 
@@ -41,7 +41,8 @@ public class Veiculo<T> implements Serializable, Comparable<T>{
     }
 
     @Override
-    public int compareTo(T o) {
+    public int compareTo(Object o) {
         return this.nome.compareTo(((Veiculo) o).getNome());
     }
+
 }

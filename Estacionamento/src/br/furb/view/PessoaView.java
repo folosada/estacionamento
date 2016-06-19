@@ -49,7 +49,7 @@ public class PessoaView extends javax.swing.JFrame implements View {
         jScrollPane1 = new javax.swing.JScrollPane();
         pessoasJTable = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setType(java.awt.Window.Type.POPUP);
 
         lblPessoaNome.setText("Nome");

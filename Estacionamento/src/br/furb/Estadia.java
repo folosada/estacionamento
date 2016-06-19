@@ -14,12 +14,17 @@ import java.util.Date;
  *
  * @author Gabriel Bernardi
  */
-public class Estadia<T> implements Serializable, Comparable<T>{
-    private String chave;
+public class Estadia implements Serializable, Comparable {
     private Pessoa pessoa;
     private Veiculo veiculo;
     private Date dataEntrada;
     private Date dataSaida;
+    
+    public Estadia(Pessoa pessoa, Veiculo veiculo, Date dataEntrada) {
+        this.setPessoa(pessoa);
+        this.setVeiculo(veiculo);
+        this.setDataEntrada(dataEntrada);
+    }
     
     public Pessoa getPessoa() {
         return pessoa;
@@ -43,7 +48,6 @@ public class Estadia<T> implements Serializable, Comparable<T>{
 
     public void setDataEntrada(Date dataEntrada) {
         this.dataEntrada = dataEntrada;
-        this.setChave();
     }
 
     public Date getDataSaida() {
@@ -55,17 +59,17 @@ public class Estadia<T> implements Serializable, Comparable<T>{
     }
     
     public String getChave() {
-        return this.chave;
-    }
-
-    private void setChave() {
-        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
-        this.chave = this.getPessoa().getCpf() + "_" + 
-                     this.getVeiculo().getPlaca() + "_" + 
-                     sdf.format(this.getDataEntrada());
+        if (this.getPessoa() != null && this.getVeiculo() != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
+            return this.getPessoa().getCpf() + "_" + 
+                   this.getVeiculo().getPlaca() + "_" + 
+                   sdf.format(this.getDataEntrada());
+        } else {
+            return null;
+        }
     }
     
-    public Double calcular(){
+    public Double calcularValor(){
         try {
             Calendar dataInicial = Calendar.getInstance();
             dataInicial.setTime(dataEntrada);
@@ -86,12 +90,12 @@ public class Estadia<T> implements Serializable, Comparable<T>{
     
     @Override
     public boolean equals(Object obj) {
-        return this.chave.equals((String) obj)
+        return this.getChave().equals((String) obj)
                 && this.getDataSaida() != null;
     }
 
     @Override
-    public int compareTo(T o) {
+    public int compareTo(Object o) {
 //        Estadia estadia = (Estadia) o;
 //        if (this.dataEntrada.compareTo(estadia.getDataEntrada()) == 0){
 //            if (this.pessoa.compareTo(estadia.getPessoa()) == 0){
@@ -101,4 +105,5 @@ public class Estadia<T> implements Serializable, Comparable<T>{
         
         return 0;
     }
+
 }
