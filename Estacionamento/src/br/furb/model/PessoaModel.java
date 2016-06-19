@@ -8,23 +8,30 @@ package br.furb.model;
 import br.furb.Pessoa;
 import br.furb.arquivo.Arquivo;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.List;
 
 /**
  *
- * @author Flávio e Carol
+ * @author flavioomar  
  */
 public class PessoaModel implements Model {
     
-    private final Arquivo arquivo = Arquivo.getInstance();
+    private static final String caminhoPessoa = Paths.get("Pessoa").toAbsolutePath().toString();
 
     @Override
     public void salvar(Object info) throws Exception {
-        arquivo.salvar(info, ((Pessoa) info).getCpf());
+        Arquivo.getInstance().salvar(info, ((Pessoa) info).getCpf(), caminhoPessoa);
     }
 
     @Override
     public Object recuperar(String chave) throws Exception {
-        return arquivo.recuperar(chave, "Pessoa");
+        return Arquivo.getInstance().recuperar(chave, caminhoPessoa);
+    }
+
+    @Override
+    public List recuperar() throws Exception {
+        return Arquivo.getInstance().recuperar(caminhoPessoa);
     }
     
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.furb.model;
+package br.furb.view;
 
 import java.util.List;
 
@@ -11,10 +11,14 @@ import java.util.List;
  *
  * @author Flávio e Carol
  */
-public interface Model {
-    public abstract void salvar(Object info) throws Exception;
+public interface View {
     
-    public abstract Object recuperar(String chave) throws Exception;
+    public abstract void salvar(Object info);
     
-    public abstract List recuperar() throws Exception;
+    public abstract Object recuperar(String chave);
+    
+    public abstract List recuperar();
+    
+    public abstract void abreJanela();
+    
 }

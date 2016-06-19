@@ -7,6 +7,8 @@ package br.furb.model;
 
 import br.furb.Veiculo;
 import br.furb.arquivo.Arquivo;
+import java.nio.file.Paths;
+import java.util.List;
 
 /**
  *
@@ -14,16 +16,21 @@ import br.furb.arquivo.Arquivo;
  */
 public class VeiculoModel implements Model {
     
-    private final Arquivo arquivo = Arquivo.getInstance();
-
+    private static final String caminhoVeiculo = Paths.get("Veiculo").toAbsolutePath().toString();
+    
     @Override
     public void salvar(Object info) throws Exception {
-        arquivo.salvar(info, ((Veiculo) info).getPlaca());
+        Arquivo.getInstance().salvar(info, ((Veiculo) info).getPlaca(), caminhoVeiculo);
     }
 
     @Override
     public Object recuperar(String chave) throws Exception {
-        return arquivo.recuperar(chave, "Veiculo");
+        return Arquivo.getInstance().recuperar(chave, "Veiculo");
+    }
+
+    @Override
+    public List recuperar() throws Exception {
+        return Arquivo.getInstance().recuperar(caminhoVeiculo);
     }
     
 }

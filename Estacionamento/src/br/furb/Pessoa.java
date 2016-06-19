@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author flaviolosada
  */
-public class Pessoa<T> implements Serializable, Comparable<T>{
+public class Pessoa implements Serializable, Comparable {
     private String nome;
     private String cpf;
 
@@ -39,11 +39,11 @@ public class Pessoa<T> implements Serializable, Comparable<T>{
     
     @Override
     public boolean equals(Object obj) {
-        return this.getCpf().equals(((String) obj));
+        return this.getCpf().equals(((Pessoa) obj).getCpf());
     }
 
     @Override
-    public int compareTo(T o) {
+    public int compareTo(Object o) {
         return this.nome.compareTo(((Pessoa) o).getNome());
     }
 }

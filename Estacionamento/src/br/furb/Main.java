@@ -10,7 +10,9 @@ import br.furb.model.EstadiaModel;
 import br.furb.model.Model;
 import br.furb.model.PessoaModel;
 import br.furb.model.VeiculoModel;
+import br.furb.view.Principal;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -21,51 +23,55 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException, Exception{
+        Principal form = new Principal();
+        form.setVisible(true);
         //Pessoas
-        Model pessoaModel = new PessoaModel();
-        
-        Pessoa pessoa = new Pessoa();
-    	pessoa.setCpf("123");
-    	pessoaModel.salvar(pessoa);
-    	
-        Pessoa pessoa1 = new Pessoa();
-    	pessoa1.setCpf("456");
-    	pessoaModel.salvar(pessoa1);
-        
-        Pessoa pessoa2 = new Pessoa();
-    	pessoa2.setCpf("789");
-    	pessoaModel.salvar(pessoa2);
-        
-        //Veiculos
-        VeiculoModel veiculoModel = new VeiculoModel();
-        
-    	Veiculo veiculo = new Veiculo();
-    	veiculo.setPlaca("pla123");
-    	veiculoModel.salvar(veiculo);
-    	
-    	Veiculo veiculo1 = new Veiculo();
-    	veiculo1.setPlaca("pla456");
-    	veiculoModel.salvar(veiculo1);
-        
-    	Veiculo veiculo2 = new Veiculo();
-    	veiculo2.setPlaca("pla789");
-    	veiculoModel.salvar(veiculo2);
-    	
-        //Estadias
-//        Arquivo a = Arquivo.getInstance();
-        
-    	Model estadiaModel = new EstadiaModel();
-    	
-    	Estadia estadia = new Estadia();
-    	estadia.setPessoa(pessoa);
-    	estadia.setVeiculo(veiculo);
-    	estadia.setDataEntrada(new Date());
-//    	estadia.setDataSaida(new Date());
-    	estadiaModel.salvar(estadia);
-        
-        Thread.sleep(10000*6);
-        
-        estadia.setDataSaida(new Date());
+//        System.out.println(Paths.get("Estadia").toAbsolutePath().toString());
+//        
+//        Model pessoaModel = new PessoaModel();
+//        
+//        Pessoa pessoa = new Pessoa();
+//    	pessoa.setCpf("123");
+//    	pessoaModel.salvar(pessoa);
+//    	
+//        Pessoa pessoa1 = new Pessoa();
+//    	pessoa1.setCpf("456");
+//    	pessoaModel.salvar(pessoa1);
+//        
+//        Pessoa pessoa2 = new Pessoa();
+//    	pessoa2.setCpf("789");
+//    	pessoaModel.salvar(pessoa2);
+//        
+//        //Veiculos
+//        VeiculoModel veiculoModel = new VeiculoModel();
+//        
+//    	Veiculo veiculo = new Veiculo();
+//    	veiculo.setPlaca("pla123");
+//    	veiculoModel.salvar(veiculo);
+//    	
+//    	Veiculo veiculo1 = new Veiculo();
+//    	veiculo1.setPlaca("pla456");
+//    	veiculoModel.salvar(veiculo1);
+//        
+//    	Veiculo veiculo2 = new Veiculo();
+//    	veiculo2.setPlaca("pla789");
+//    	veiculoModel.salvar(veiculo2);
+//    	
+//        //Estadias
+////        Arquivo a = Arquivo.getInstance();
+//        
+//    	Model estadiaModel = new EstadiaModel();
+//    	
+//    	Estadia estadia = new Estadia();
+//    	estadia.setPessoa(pessoa);
+//    	estadia.setVeiculo(veiculo);
+//    	estadia.setDataEntrada(new Date());
+////    	estadia.setDataSaida(new Date());
+//    	estadiaModel.salvar(estadia);
+//        
+//        Thread.sleep(10000*6);
+//        
+//        estadia.setDataSaida(new Date());
         
         
 //    	Estadia estadia1 = new Estadia();

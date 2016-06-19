@@ -15,7 +15,7 @@ import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -26,16 +26,14 @@ public class Arquivo<T> {
     private static final Arquivo ARQUIVO = new Arquivo();
     private static FileSystem system = FileSystems.getDefault();
     private static final String separador = system.getSeparator() + system.getSeparator();
-    private static final Path caminhoEstadia = Paths.get("C:", separador, "Estacionameto", separador, "Estadia");
-
     public static Arquivo getInstance() {
         return Arquivo.ARQUIVO;
     }
     
-    public void salvar(T info, String chave) throws IOException{
+    public void salvar(T info, String chave, String diretorio) throws IOException{
         ObjectOutputStream oos = null;
-        if(!existeArquivo(info)){
-            Path arquivo = Paths.get(caminhoEstadia.toString() + separador + chave);
+        if(!existeArquivo(info, diretorio)){
+            Path arquivo = Paths.get(diretorio + separador + chave);
             oos = new ObjectOutputStream(new FileOutputStream(arquivo.toString()));
             oos.writeObject(info);
             oos.close();
@@ -43,8 +41,8 @@ public class Arquivo<T> {
     }
     
     //Feito só para demonstração
-    private boolean existeArquivo(T info){
-        File file = new File(caminhoEstadia.toString());
+    private boolean existeArquivo(T info, String diretorio){
+        File file = new File(diretorio);
 	File afile[] = file.listFiles();
 	int i = 0;
 	for (int j = afile.length; i < j; i++) {
@@ -56,16 +54,10 @@ public class Arquivo<T> {
         return false;
     }
     
-    public T recuperar(String chave, String tipoDado) throws IOException, ClassNotFoundException{
+    public T recuperar(String chave, String diretorio) throws IOException, ClassNotFoundException{
         ObjectInputStream ois;
         String caminho = "";
-        if ("Pessoa".equalsIgnoreCase(tipoDado)) {
-            caminho = caminhoEstadia + separador + chave;
-        } else if ("Veiculo".equalsIgnoreCase(tipoDado)) {
-            caminho = caminhoEstadia + separador + chave;
-        } else if ("Estadia".equalsIgnoreCase(tipoDado)) {
-            caminho = caminhoEstadia + separador + chave;
-        }
+        caminho = diretorio + separador + chave;
         Path arquivo = Paths.get(caminho);        
         ois = new ObjectInputStream(new FileInputStream(arquivo.toString()));
         T entidade = (T) ois.readObject();
@@ -73,10 +65,10 @@ public class Arquivo<T> {
         return entidade;                
     }
     
-    public List<T> recuperarEstadias() throws IOException, ClassNotFoundException{
-        List<T> listEstadias = new ArrayList<>();
-        Path arquivo = Paths.get(caminhoEstadia.toString()); 
-        File file = new File(caminhoEstadia.toString());
+    public List<T> recuperar(String diretorio) throws IOException, ClassNotFoundException{
+        List<T> lista = new LinkedList<>();
+        Path arquivo = Paths.get(diretorio); 
+        File file = new File(diretorio);
 	File afile[] = file.listFiles();
         ObjectInputStream ois;
 	int i = 0;
@@ -84,11 +76,11 @@ public class Arquivo<T> {
 	for (int j = afile.length; i < j; i++) {
             File arquivos = afile[i];
             ois = new ObjectInputStream(new FileInputStream(arquivo.toString() + separador + arquivos.getName()));
-            T estadia = (T) ois.readObject();
-            listEstadias.add(estadia);
+            T entidade = (T) ois.readObject();
+            lista.add(entidade);
             ois.close();
 	}
         
-        return listEstadias;
+        return lista;
     }
 }
