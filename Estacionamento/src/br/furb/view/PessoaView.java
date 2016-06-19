@@ -11,25 +11,27 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
- * @author Gabriel Bernardi
+ * @author flavioomar
  */
-public class PessoaView extends javax.swing.JFrame implements View {
+public class PessoaView extends javax.swing.JDialog implements View {
+
+    /**
+     * Creates new form PessoaView
+     */
     
-    public PessoaView() {
+    public PessoaView(javax.swing.JFrame parent) {
+        super(parent, true);
+        initComponents();   
+        this.atualizaTabela();
+    }
+    
+    public PessoaView(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
-        DefaultTableModel dtm = new DefaultTableModel();
-        LinkedList<Pessoa> listaPessoas = (LinkedList) this.recuperar();
-        dtm.addColumn("CPF");
-        dtm.addColumn("Nome");
-        for (Pessoa pessoa : listaPessoas) {
-            Object [] row = new Object[2];
-            row[0] = pessoa.getCpf();
-            row[1] = pessoa.getNome();
-            dtm.addRow(row);
-        }
     }
 
     /**
@@ -41,36 +43,15 @@ public class PessoaView extends javax.swing.JFrame implements View {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblPessoaNome = new javax.swing.JLabel();
-        cpfJFormattedTextField = new javax.swing.JFormattedTextField();
-        salvarJButton = new javax.swing.JButton();
         nomeJTextField = new javax.swing.JTextField();
         cpfJLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         pessoasJTable = new javax.swing.JTable();
+        lblPessoaNome = new javax.swing.JLabel();
+        cpfJFormattedTextField = new javax.swing.JFormattedTextField();
+        salvarJButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setType(java.awt.Window.Type.POPUP);
-
-        lblPessoaNome.setText("Nome");
-
-        try {
-            cpfJFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        cpfJFormattedTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cpfJFormattedTextFieldActionPerformed(evt);
-            }
-        });
-
-        salvarJButton.setText("Salvar");
-        salvarJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                salvarJButtonActionPerformed(evt);
-            }
-        });
 
         cpfJLabel.setText("CPF:");
 
@@ -98,7 +79,26 @@ public class PessoaView extends javax.swing.JFrame implements View {
             }
         });
         jScrollPane1.setViewportView(pessoasJTable);
-        pessoasJTable.getAccessibleContext().setAccessibleDescription("");
+
+        lblPessoaNome.setText("Nome");
+
+        try {
+            cpfJFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        cpfJFormattedTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cpfJFormattedTextFieldActionPerformed(evt);
+            }
+        });
+
+        salvarJButton.setText("Salvar");
+        salvarJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvarJButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -107,18 +107,20 @@ public class PessoaView extends javax.swing.JFrame implements View {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(salvarJButton)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblPessoaNome)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(nomeJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(cpfJLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cpfJFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(salvarJButton)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblPessoaNome)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nomeJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cpfJLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cpfJFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,11 +144,15 @@ public class PessoaView extends javax.swing.JFrame implements View {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cpfJFormattedTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpfJFormattedTextFieldActionPerformed
-        
+
     }//GEN-LAST:event_cpfJFormattedTextFieldActionPerformed
 
     private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
-        this.salvar(evt);
+        Pessoa pessoa = new Pessoa();
+        pessoa.setCpf(cpfJFormattedTextField.getText());
+        pessoa.setNome(nomeJTextField.getText());
+        this.salvar(pessoa);
+        this.atualizaTabela();
     }//GEN-LAST:event_salvarJButtonActionPerformed
 
     /**
@@ -177,10 +183,17 @@ public class PessoaView extends javax.swing.JFrame implements View {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PessoaView().setVisible(true);
+                PessoaView dialog = new PessoaView(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
@@ -224,5 +237,15 @@ public class PessoaView extends javax.swing.JFrame implements View {
     @Override
     public void abreJanela() {
         this.setVisible(true);
+    }
+
+    @Override
+    public void atualizaTabela() {
+        DefaultTableModel dtm = new DefaultTableModel(new String[]{"CPF", "Nome"}, 0);
+        LinkedList<Pessoa> pessoas = (LinkedList) this.recuperar();
+        for (Pessoa pessoa : pessoas) {
+            dtm.addRow(new String[]{pessoa.getCpf(), pessoa.getNome()});
+        }
+        pessoasJTable.setModel((TableModel) dtm);
     }
 }

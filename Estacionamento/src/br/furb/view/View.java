@@ -21,4 +21,6 @@ public interface View {
     
     public abstract void abreJanela();
     
+    public abstract void atualizaTabela();
+    
 }
