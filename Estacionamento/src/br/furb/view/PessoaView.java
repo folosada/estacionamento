@@ -229,7 +229,7 @@ public class PessoaView extends javax.swing.JDialog implements View {
 
     @Override
     public void salvar(Object info) {
-        Controller pessoaController = ParkFactory.getFactory("Controller").createController();
+        Controller pessoaController = ParkFactory.getFactory("Pessoa").createController();
         try {
             pessoaController.salvar(info);
         } catch (Exception ex) {
@@ -239,7 +239,7 @@ public class PessoaView extends javax.swing.JDialog implements View {
 
     @Override
     public Object recuperar(String chave) {
-        Controller pessoaController = ParkFactory.getFactory("Controller").createController();
+        Controller pessoaController = ParkFactory.getFactory("Pessoa").createController();
         try {
             return pessoaController.recuperar(chave);
         } catch (Exception e) {

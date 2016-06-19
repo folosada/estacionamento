@@ -52,6 +52,11 @@ public class Principal extends javax.swing.JFrame {
 
         veiculoJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/image/model-s_icon-icons.com_50092.png"))); // NOI18N
         veiculoJButton.setText("Cadastrar Veículos");
+        veiculoJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                veiculoJButtonActionPerformed(evt);
+            }
+        });
 
         estadiaJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/image/ios7-plus-outline_icon-icons.com_50195.png"))); // NOI18N
         estadiaJButton.setText("Registrar Estadia");
@@ -98,6 +103,11 @@ public class Principal extends javax.swing.JFrame {
         View pessoa = ParkFactory.getFactory("Pessoa").createView(this);
         pessoa.abreJanela();
     }//GEN-LAST:event_pessoaJButtonActionPerformed
+
+    private void veiculoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_veiculoJButtonActionPerformed
+        View veiculo = ParkFactory.getFactory("Veiculo").createView(this);
+        veiculo.abreJanela();
+    }//GEN-LAST:event_veiculoJButtonActionPerformed
 
     /**
      * @param args the command line arguments
