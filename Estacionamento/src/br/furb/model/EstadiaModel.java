@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author Flávio e Carol
+ * @author flavioomar
  */
 public class EstadiaModel implements Model {
     

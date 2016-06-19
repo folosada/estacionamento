@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author Flávio e Carol
+ * @author flavioomar
  */
 public interface Model {
     public abstract void salvar(Object info) throws Exception;

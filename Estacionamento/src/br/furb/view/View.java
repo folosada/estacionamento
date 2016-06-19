@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author Flávio e Carol
+ * @author flavioomar
  */
 public interface View {
     
