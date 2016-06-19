@@ -16,21 +16,21 @@ import java.util.List;
  */
 public class EstadiaModel implements Model {
     
-    private static final String caminhoEstadia = Paths.get("Estadia").toAbsolutePath().toString();
+    private static final String CAMINHO_ESTADIA = Paths.get("Estadia").toAbsolutePath().toString();
 
     @Override
     public void salvar(Object info) throws Exception {
-         Arquivo.getInstance().salvar(info, ((Estadia) info).getChave(), caminhoEstadia);
+         Arquivo.getInstance().salvar(info, ((Estadia) info).getChave(), CAMINHO_ESTADIA);
     }
 
     @Override
     public Object recuperar(String chave) throws Exception {
-        return Arquivo.getInstance().recuperar(chave, caminhoEstadia);
+        return Arquivo.getInstance().recuperar(chave, CAMINHO_ESTADIA);
     }
 
     @Override
     public List recuperar() throws Exception {
-        return Arquivo.getInstance().recuperar(caminhoEstadia);
+        return Arquivo.getInstance().recuperar(CAMINHO_ESTADIA);
     }
     
 }

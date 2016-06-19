@@ -22,7 +22,11 @@ public class Pessoa implements Serializable, Comparable {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        if (nome != null && !nome.trim().equals("")){
+            this.nome = nome;
+        } else {
+            throw new IllegalArgumentException("Nome Inválido.");
+        }
     }
 
     public String getCpf() {
