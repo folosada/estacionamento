@@ -5,8 +5,17 @@
  */
 package br.furb.view;
 
+import br.furb.Veiculo;
+import br.furb.controller.Controller;
+import br.furb.factory.ParkFactory;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -20,6 +29,19 @@ public class VeiculoView extends javax.swing.JDialog implements View {
     
     public VeiculoView(Object form) {
         super((JFrame) form, true);
+        initComponents();
+        atualizaTabela();
+        veiculosJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (e.getValueIsAdjusting())
+                    return;
+                int selected = veiculosJTable.getSelectedRow();
+                jTextField1.setText((String) veiculosJTable.getValueAt(selected, 0));
+                jTextField2.setText((String) veiculosJTable.getValueAt(selected, 1));
+            }
+        });
     }
     
     public VeiculoView(java.awt.Frame parent, boolean modal) {
@@ -36,17 +58,57 @@ public class VeiculoView extends javax.swing.JDialog implements View {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        veiculosJTable = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        veiculosJTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(veiculosJTable);
+
+        jTextField1.setText("jTextField1");
+
+        jTextField2.setText("jTextField2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(159, 159, 159)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(159, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -95,30 +157,57 @@ public class VeiculoView extends javax.swing.JDialog implements View {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable veiculosJTable;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void salvar(Object info) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Controller veiculoController = ParkFactory.getFactory("Veiculo").createController();
+        try {
+            veiculoController.salvar(info);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar veículo!\n" + ex.getMessage());
+        }
     }
 
     @Override
     public Object recuperar(String chave) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Controller veiculoController = ParkFactory.getFactory("Veiculo").createController();
+        try {
+            return veiculoController.recuperar(chave);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao recuperar registro!\n" + chave + "\n" + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public List recuperar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Controller veiculoController = ParkFactory.getFactory("Veiculo").createController();
+        try {
+            return veiculoController.recuperar();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao recuperar registros!\n" + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
     public void abreJanela() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setVisible(true);
     }
 
     @Override
     public void atualizaTabela() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DefaultTableModel dtm = new DefaultTableModel(new String[]{"Placa", "Nome"}, 0);
+        LinkedList<Veiculo> veiculos = (LinkedList) this.recuperar();
+        veiculos.sort(null);
+        for (Veiculo veiculo : veiculos) {
+            dtm.addRow(new String[]{veiculo.getPlaca(), veiculo.getNome()});
+        }
+        veiculosJTable.setModel((TableModel) dtm);
     }
 }

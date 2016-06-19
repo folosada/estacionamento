@@ -5,6 +5,8 @@
  */
 package br.furb.controller;
 
+import br.furb.factory.ParkFactory;
+import br.furb.model.Model;
 import java.util.List;
 
 /**
@@ -15,17 +17,20 @@ public class VeiculoController implements Controller {
 
     @Override
     public void salvar(Object info) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Model veiculoModel = ParkFactory.getFactory("Veiculo").createModel();
+        veiculoModel.salvar(info);
     }
 
     @Override
     public Object recuperar(String chave) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Model veiculoModel = ParkFactory.getFactory("Veiculo").createModel();
+        return veiculoModel.recuperar(chave);
     }
 
     @Override
     public List recuperar() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Model veiculoModel = ParkFactory.getFactory("Veiculo").createModel();
+        return veiculoModel.recuperar();
     }
     
 }

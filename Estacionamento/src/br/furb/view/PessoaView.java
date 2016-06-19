@@ -250,7 +250,7 @@ public class PessoaView extends javax.swing.JDialog implements View {
 
     @Override
     public List recuperar() {
-        Controller pessoaController = ParkFactory.getFactory("Controller").createController();
+        Controller pessoaController = ParkFactory.getFactory("Pessoa").createController();
         try {
             return pessoaController.recuperar();
         } catch (Exception ex) {
