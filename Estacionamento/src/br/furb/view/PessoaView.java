@@ -165,12 +165,24 @@ public class PessoaView extends javax.swing.JDialog implements View {
     }//GEN-LAST:event_cpfJFormattedTextFieldActionPerformed
 
     private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
-        if (!"   .   .   -  ".equals(cpfJFormattedTextField.getText()) && !"".equals(nomeJTextField.getText())) {
+        try {
             Pessoa pessoa = new Pessoa();
             pessoa.setCpf(cpfJFormattedTextField.getText());
             pessoa.setNome(nomeJTextField.getText());
-            this.salvar(pessoa);
-            this.atualizaTabela();
+            if (this.recuperar(pessoa.getCpf()) != null){
+                String message = "Já exite uma pessoa cadastrada com esta CPF, deseja substituir?";
+                String title = "Confirmação";
+                int reply = JOptionPane.showConfirmDialog(this, message, title, JOptionPane.YES_NO_OPTION);
+                if (reply == JOptionPane.YES_OPTION){
+                    this.salvar(pessoa);
+                    this.atualizaTabela();
+                }
+            } else {
+                this.salvar(pessoa);
+                this.atualizaTabela();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_salvarJButtonActionPerformed
 
@@ -243,9 +255,8 @@ public class PessoaView extends javax.swing.JDialog implements View {
         try {
             return pessoaController.recuperar(chave);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao recuperar o registro!\n" + chave + "\n" + e.getMessage());
+            return null;
         }
-        return null;
     }
 
     @Override
