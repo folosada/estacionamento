@@ -61,8 +61,8 @@ public class VeiculoView extends javax.swing.JDialog implements View {
         jScrollPane1 = new javax.swing.JScrollPane();
         veiculosJTable = new javax.swing.JTable();
         nomeJTextField = new javax.swing.JTextField();
-        cpfJLabel = new javax.swing.JLabel();
-        lblPessoaNome = new javax.swing.JLabel();
+        placaJLabel = new javax.swing.JLabel();
+        lblVeiculoNome = new javax.swing.JLabel();
         placaJFormattedTextField = new javax.swing.JFormattedTextField();
         btnSalvar = new javax.swing.JButton();
 
@@ -81,9 +81,9 @@ public class VeiculoView extends javax.swing.JDialog implements View {
         ));
         jScrollPane1.setViewportView(veiculosJTable);
 
-        cpfJLabel.setText("Placa:");
+        placaJLabel.setText("Placa:");
 
-        lblPessoaNome.setText("Nome");
+        lblVeiculoNome.setText("Nome");
 
         try {
             placaJFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("???-####")));
@@ -109,10 +109,10 @@ public class VeiculoView extends javax.swing.JDialog implements View {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(cpfJLabel)
+                                .addComponent(placaJLabel)
                                 .addGap(8, 8, 8))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(lblPessoaNome)
+                                .addComponent(lblVeiculoNome)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(nomeJTextField)
@@ -128,11 +128,11 @@ public class VeiculoView extends javax.swing.JDialog implements View {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPessoaNome)
+                    .addComponent(lblVeiculoNome)
                     .addComponent(nomeJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cpfJLabel)
+                    .addComponent(placaJLabel)
                     .addComponent(placaJFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalvar)
@@ -210,11 +210,11 @@ public class VeiculoView extends javax.swing.JDialog implements View {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JLabel cpfJLabel;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblPessoaNome;
+    private javax.swing.JLabel lblVeiculoNome;
     private javax.swing.JTextField nomeJTextField;
     private javax.swing.JFormattedTextField placaJFormattedTextField;
+    private javax.swing.JLabel placaJLabel;
     private javax.swing.JTable veiculosJTable;
     // End of variables declaration//GEN-END:variables
 

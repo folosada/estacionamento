@@ -101,7 +101,7 @@
     </Container>
     <Component class="javax.swing.JLabel" name="lblPessoaNome">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nome"/>
+        <Property name="text" type="java.lang.String" value="Nome:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="cpfJFormattedTextField">

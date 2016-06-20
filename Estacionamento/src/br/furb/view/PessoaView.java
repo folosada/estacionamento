@@ -97,7 +97,7 @@ public class PessoaView extends javax.swing.JDialog implements View {
         });
         jScrollPane1.setViewportView(pessoasJTable);
 
-        lblPessoaNome.setText("Nome");
+        lblPessoaNome.setText("Nome:");
 
         try {
             cpfJFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));

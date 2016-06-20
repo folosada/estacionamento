@@ -96,7 +96,8 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void estadiaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadiaJButtonActionPerformed
-        // TODO add your handling code here:
+        View estadia = ParkFactory.getFactory("Estadia").createView(this);
+        estadia.abreJanela();
     }//GEN-LAST:event_estadiaJButtonActionPerformed
 
     private void pessoaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pessoaJButtonActionPerformed

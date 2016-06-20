@@ -30,11 +30,11 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="cpfJLabel" min="-2" max="-2" attributes="0"/>
+                              <Component id="placaJLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="lblPessoaNome" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblVeiculoNome" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -58,12 +58,12 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblPessoaNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblVeiculoNome" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="nomeJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="cpfJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="placaJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="placaJFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -99,12 +99,12 @@
     </Container>
     <Component class="javax.swing.JTextField" name="nomeJTextField">
     </Component>
-    <Component class="javax.swing.JLabel" name="cpfJLabel">
+    <Component class="javax.swing.JLabel" name="placaJLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Placa:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblPessoaNome">
+    <Component class="javax.swing.JLabel" name="lblVeiculoNome">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nome"/>
       </Properties>

@@ -38,25 +38,9 @@ public class Arquivo<T> {
         oos.close();
     }
     
-    //Feito só para demonstração
-//    private boolean existeArquivo(T info, String diretorio){
-//        File file = new File(diretorio);
-//	File afile[] = file.listFiles();
-//	int i = 0;
-//	for (int j = afile.length; i < j; i++) {
-//            File arquivos = afile[i];
-//            if (info.equals(arquivos.getName())){
-//                return true;
-//            }
-//	}
-//        return false;
-//    }
-    
     public T recuperar(String chave, String diretorio) throws IOException, ClassNotFoundException{
         ObjectInputStream ois;
-        String caminho = "";
-        caminho = diretorio + separador + chave;
-        Path arquivo = Paths.get(caminho);        
+        Path arquivo = Paths.get(diretorio + separador + chave);        
         ois = new ObjectInputStream(new FileInputStream(arquivo.toString()));
         T entidade = (T) ois.readObject();
         ois.close();

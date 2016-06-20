@@ -7,6 +7,7 @@ package br.furb.factory;
 
 import br.furb.controller.Controller;
 import br.furb.model.Model;
+import br.furb.view.EstadiaView;
 import br.furb.view.View;
 
 /**
@@ -22,7 +23,7 @@ public class EstadiaParkFactory extends ParkFactory {
 
     @Override
     public View createView(Object form) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new EstadiaView(form);
     }
 
     @Override
