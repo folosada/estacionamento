@@ -27,7 +27,7 @@ public class Veiculo implements Serializable, Comparable {
         if (nome != null && !nome.trim().equals("")){
             this.nome = nome;
         } else {
-            throw new IllegalArgumentException("Nome Inválido.");
+            throw new IllegalArgumentException("O Nome deve ser informado.");
         }
     }
 
@@ -35,7 +35,7 @@ public class Veiculo implements Serializable, Comparable {
         if (placa != null && !placa.trim().equals("")){
             this.placa = placa;
         } else {
-            throw new IllegalArgumentException("Placa Inválida.");
+            throw new IllegalArgumentException("A Placa deve ser informada.");
         }
     }
     
@@ -46,7 +46,11 @@ public class Veiculo implements Serializable, Comparable {
 
     @Override
     public int compareTo(Object o) {
-        return this.nome.compareTo(((Veiculo) o).getNome());
+        int compare = this.nome.compareTo(((Veiculo) o).getNome());
+        if (compare == 0) {
+            compare = this.placa.compareTo(((Veiculo) o).getPlaca());
+        }
+        return compare;
     }
 
 }
