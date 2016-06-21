@@ -68,6 +68,7 @@ public class VeiculoView extends javax.swing.JDialog implements View {
         btnSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Veículos");
 
         veiculosJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

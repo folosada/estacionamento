@@ -35,6 +35,7 @@ public class Principal extends javax.swing.JFrame {
         estadiaJButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("StockCar");
         setName("principal"); // NOI18N
         setResizable(false);
 

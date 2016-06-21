@@ -68,6 +68,7 @@ public class PessoaView extends javax.swing.JDialog implements View {
         salvarJButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Pessoas");
         setModal(true);
         setResizable(false);
 
