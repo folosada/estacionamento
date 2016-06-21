@@ -31,7 +31,11 @@ public class Estadia implements Serializable, Comparable {
     }
 
     public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
+        if (pessoa != null){
+            this.pessoa = pessoa;
+        } else {
+            throw new IllegalArgumentException("A pessoa deve ser informada.");
+        }
     }
 
     public Veiculo getVeiculo() {
@@ -39,7 +43,11 @@ public class Estadia implements Serializable, Comparable {
     }
 
     public void setVeiculo(Veiculo veiculo) {
-        this.veiculo = veiculo;
+        if (veiculo != null){
+            this.veiculo = veiculo;
+        } else {
+            throw new IllegalArgumentException("O veículo deve ser informado.");
+        }
     }
 
     public Date getDataEntrada() {
@@ -47,7 +55,11 @@ public class Estadia implements Serializable, Comparable {
     }
 
     public void setDataEntrada(Date dataEntrada) {
-        this.dataEntrada = dataEntrada;
+        if (dataEntrada != null){
+            this.dataEntrada = dataEntrada;
+        } else {
+            throw new IllegalArgumentException("A Data de Entrada deve ser informada.");
+        }
     }
 
     public Date getDataSaida() {
@@ -55,7 +67,13 @@ public class Estadia implements Serializable, Comparable {
     }
 
     public void setDataSaida(Date dataSaida) {
-        this.dataSaida = dataSaida;
+        if (dataSaida.after(dataEntrada) && dataSaida != null){
+            this.dataSaida = dataSaida;
+        } else if(dataSaida == null){
+            throw new IllegalArgumentException("A Data de Saída deve ser informada.");
+        } else {
+            throw new IllegalArgumentException("A Data de Saída deve ser maior que a Data de Entrada.");
+        }
     }
     
     public String getChave() {
@@ -70,22 +88,18 @@ public class Estadia implements Serializable, Comparable {
     }
     
     public Double calcularValor(){
-        try {
-            Calendar dataInicial = Calendar.getInstance();
-            dataInicial.setTime(dataEntrada);
-            Calendar dataFinal = Calendar.getInstance();
-            dataFinal.setTime(dataSaida);
-            
-            long diferenca = System.currentTimeMillis() - dataInicial.getTimeInMillis();
-            
-            //Minutos só para teste
-            long diferencaMin = diferenca / (60 * 1000);
-            long diferencaHoras = diferenca / (60 * 60 * 1000);
-            
-            return diferencaMin * 4.5;
-        } catch (Exception e) {
-            throw new IllegalArgumentException("A Data de Saída deve ser informada.");
-        }
+        Calendar dataInicial = Calendar.getInstance();
+        dataInicial.setTime(dataEntrada);
+        Calendar dataFinal = Calendar.getInstance();
+        dataFinal.setTime(dataSaida);
+
+        long diferenca = System.currentTimeMillis() - dataInicial.getTimeInMillis();
+
+        //Minutos só para teste
+        long diferencaMin = diferenca / (60 * 1000);
+        long diferencaHoras = diferenca / (60 * 60 * 1000);
+
+        return diferencaMin * 4.5;
     }
     
     @Override
@@ -96,14 +110,16 @@ public class Estadia implements Serializable, Comparable {
 
     @Override
     public int compareTo(Object o) {
-//        Estadia estadia = (Estadia) o;
-//        if (this.dataEntrada.compareTo(estadia.getDataEntrada()) == 0){
-//            if (this.pessoa.compareTo(estadia.getPessoa()) == 0){
-//                
-//            }
-//        }
+        Estadia estadia = (Estadia) o;
+        int compare = this.dataEntrada.compareTo(((Estadia) o).getDataEntrada());
+        if (compare == 0) {
+            compare = this.pessoa.compareTo(((Estadia) o).getPessoa());
+            if (compare == 0){
+                compare = this.veiculo.compareTo(((Estadia) o).getVeiculo());
+            }
+        }
         
-        return 0;
+        return compare;
     }
 
 }

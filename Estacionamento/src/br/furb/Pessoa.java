@@ -25,7 +25,7 @@ public class Pessoa implements Serializable, Comparable {
         if (nome != null && !nome.trim().equals("")){
             this.nome = nome;
         } else {
-            throw new IllegalArgumentException("Nome Inválido.");
+            throw new IllegalArgumentException("O Nome deve ser informado.");
         }
     }
 
@@ -37,7 +37,7 @@ public class Pessoa implements Serializable, Comparable {
         if (cpf != null && !cpf.trim().equals("")){
             this.cpf = cpf;
         } else {
-            throw new IllegalArgumentException("CPF Inválida.");
+            throw new IllegalArgumentException("a CPF deve ser informada.");
         }
     }
     

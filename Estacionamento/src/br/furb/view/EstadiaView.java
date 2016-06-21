@@ -271,7 +271,7 @@ public class EstadiaView extends javax.swing.JDialog implements View{
 
     @Override
     public void abreJanela() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setVisible(true);
     }
 
     @Override
