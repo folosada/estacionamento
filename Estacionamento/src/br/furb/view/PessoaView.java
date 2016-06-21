@@ -29,7 +29,8 @@ public class PessoaView extends javax.swing.JDialog implements View {
     
     public PessoaView(Object parent) {
         super((JFrame) parent, true);
-        initComponents();   
+        initComponents();  
+        setLocationRelativeTo(null);
         this.atualizaTabela();
         pessoasJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 

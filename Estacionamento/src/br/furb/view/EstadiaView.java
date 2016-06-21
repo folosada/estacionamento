@@ -5,6 +5,7 @@
  */
 package br.furb.view;
 
+import br.furb.factory.ParkFactory;
 import java.util.List;
 import javax.swing.JFrame;
 
@@ -25,6 +26,7 @@ public class EstadiaView extends javax.swing.JDialog implements View{
     public EstadiaView(Object form) {
         super((JFrame) form, true);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -41,6 +43,7 @@ public class EstadiaView extends javax.swing.JDialog implements View{
         nomeJTextField = new javax.swing.JTextField();
         lblPessoaNome = new javax.swing.JLabel();
         cpfJLabel = new javax.swing.JLabel();
+        btnCarregarPessoa = new javax.swing.JButton();
         panel_add_veiculo = new javax.swing.JPanel();
         placaJFormattedTextField = new javax.swing.JFormattedTextField();
         placaJLabel = new javax.swing.JLabel();
@@ -71,6 +74,13 @@ public class EstadiaView extends javax.swing.JDialog implements View{
 
         cpfJLabel.setText("CPF:");
 
+        btnCarregarPessoa.setText("Carregar");
+        btnCarregarPessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarregarPessoaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel_add_pessoaLayout = new javax.swing.GroupLayout(panel_add_pessoa);
         panel_add_pessoa.setLayout(panel_add_pessoaLayout);
         panel_add_pessoaLayout.setHorizontalGroup(
@@ -86,14 +96,17 @@ public class EstadiaView extends javax.swing.JDialog implements View{
                         .addComponent(cpfJLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cpfJFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addGap(39, 39, 39)
+                .addComponent(btnCarregarPessoa)
+                .addContainerGap(135, Short.MAX_VALUE))
         );
         panel_add_pessoaLayout.setVerticalGroup(
             panel_add_pessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_add_pessoaLayout.createSequentialGroup()
                 .addGroup(panel_add_pessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPessoaNome)
-                    .addComponent(nomeJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nomeJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCarregarPessoa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_add_pessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cpfJFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,6 +225,11 @@ public class EstadiaView extends javax.swing.JDialog implements View{
 
     }//GEN-LAST:event_cpfJFormattedTextFieldActionPerformed
 
+    private void btnCarregarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarPessoaActionPerformed
+        View pessoa = ParkFactory.getFactory("Pessoa").createView(this);
+        pessoa.abreJanelaSelecao();
+    }//GEN-LAST:event_btnCarregarPessoaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -286,6 +304,7 @@ public class EstadiaView extends javax.swing.JDialog implements View{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCarregarPessoa;
     private javax.swing.JFormattedTextField cpfJFormattedTextField;
     private javax.swing.JLabel cpfJLabel;
     private javax.swing.JFormattedTextField dataEntradaJFormattedTextField;

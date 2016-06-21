@@ -77,7 +77,9 @@
                           <Component id="cpfJFormattedTextField" min="-2" pref="238" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="97" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                  <Component id="btnCarregarPessoa" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="135" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -87,6 +89,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblPessoaNome" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="nomeJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCarregarPessoa" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -120,6 +123,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="CPF:"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnCarregarPessoa">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Carregar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCarregarPessoaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

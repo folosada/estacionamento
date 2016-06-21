@@ -30,6 +30,7 @@ public class VeiculoView extends javax.swing.JDialog implements View {
     public VeiculoView(Object form) {
         super((JFrame) form, true);
         initComponents();
+        setLocationRelativeTo(null);
         atualizaTabela();
         veiculosJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
