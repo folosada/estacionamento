@@ -281,7 +281,6 @@ public class PessoaView extends javax.swing.JDialog implements View {
         cpfJFormattedTextField.setEnabled(false);
         salvarJButton.setEnabled(false);
         this.abreJanela();
-        while (this.isVisible()) {}
         return this.recuperar(cpfJFormattedTextField.getText());
     }
     

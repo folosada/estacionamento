@@ -259,8 +259,6 @@ public class VeiculoView extends javax.swing.JDialog implements View {
         placaJFormattedTextField.setEnabled(false);
         btnSalvar.setEnabled(false);            
         this.abreJanela();
-        while (this.isVisible()) {            
-        }
         return this.recuperar(placaJFormattedTextField.getText());
     }
 
