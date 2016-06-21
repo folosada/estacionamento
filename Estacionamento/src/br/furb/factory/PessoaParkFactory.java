@@ -5,12 +5,9 @@
  */
 package br.furb.factory;
 
-import br.furb.controller.Controller;
 import br.furb.controller.PessoaController;
-import br.furb.model.Model;
 import br.furb.model.PessoaModel;
 import br.furb.view.PessoaView;
-import br.furb.view.View;
 
 /**
  *
@@ -19,17 +16,17 @@ import br.furb.view.View;
 public class PessoaParkFactory extends ParkFactory {
 
     @Override
-    public Model createModel() {
+    public PessoaModel createModel() {
         return new PessoaModel();
     }
 
     @Override
-    public View createView(Object form) {
+    public PessoaView createView(Object form) {
         return new PessoaView(form);
     }
 
     @Override
-    public Controller createController() {
+    public PessoaController createController() {
         return new PessoaController();
     }
 

@@ -5,10 +5,9 @@
  */
 package br.furb.factory;
 
-import br.furb.controller.Controller;
-import br.furb.model.Model;
+import br.furb.controller.EstadiaController;
+import br.furb.model.EstadiaModel;
 import br.furb.view.EstadiaView;
-import br.furb.view.View;
 
 /**
  *
@@ -17,18 +16,18 @@ import br.furb.view.View;
 public class EstadiaParkFactory extends ParkFactory {
 
     @Override
-    public Model createModel() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public EstadiaModel createModel() {
+        return new EstadiaModel();
     }
 
     @Override
-    public View createView(Object form) {
+    public EstadiaView createView(Object form) {
         return new EstadiaView(form);
     }
 
     @Override
-    public Controller createController() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public EstadiaController createController() {
+        return new EstadiaController();
     }
     
 }

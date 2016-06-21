@@ -5,12 +5,9 @@
  */
 package br.furb.factory;
 
-import br.furb.controller.Controller;
 import br.furb.controller.VeiculoController;
-import br.furb.model.Model;
 import br.furb.model.VeiculoModel;
 import br.furb.view.VeiculoView;
-import br.furb.view.View;
 
 /**
  *
@@ -19,17 +16,17 @@ import br.furb.view.View;
 public class VeiculoParkFactory extends ParkFactory {
 
     @Override
-    public Model createModel() {
+    public VeiculoModel createModel() {
         return new VeiculoModel();
     }
 
     @Override
-    public View createView(Object form) {
+    public VeiculoView createView(Object form) {
         return new VeiculoView(form);
     }
 
     @Override
-    public Controller createController() {
+    public VeiculoController createController() {
         return new VeiculoController();
     }
     
