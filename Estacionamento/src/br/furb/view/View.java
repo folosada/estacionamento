@@ -21,6 +21,8 @@ public interface View {
     
     public abstract void abreJanela();
     
+    public abstract Object abreJanelaSelecao();
+    
     public abstract void atualizaTabela();
     
 }

@@ -276,6 +276,16 @@ public class PessoaView extends javax.swing.JDialog implements View {
     }
 
     @Override
+    public Object abreJanelaSelecao() {
+        nomeJTextField.setEnabled(false);
+        cpfJFormattedTextField.setEnabled(false);
+        salvarJButton.setEnabled(false);
+        this.abreJanela();
+        while (this.isVisible()) {}
+        return this.recuperar(cpfJFormattedTextField.getText());
+    }
+    
+    @Override
     public void atualizaTabela() {
         DefaultTableModel dtm = new DefaultTableModel(new String[]{"CPF", "Nome"}, 0);
         LinkedList<Pessoa> pessoas = (LinkedList) this.recuperar();

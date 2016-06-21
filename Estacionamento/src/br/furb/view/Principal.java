@@ -6,8 +6,6 @@
 package br.furb.view;
 
 import br.furb.factory.ParkFactory;
-import br.furb.view.PessoaView;
-import javax.swing.JDialog;
 
 
 /**
