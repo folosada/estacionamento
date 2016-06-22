@@ -6,6 +6,7 @@
 package br.furb.pojo;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -109,7 +110,8 @@ public class Estadia implements Serializable, Comparable {
 
     public static String formatarChave(String cpf, String placa, String dataEntrada) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy_HHmm");
-        return cpf + "_" + placa + "_" + sdf.format(sdf.parse(dataEntrada));
+        Date df = DateFormat.getInstance().parse(dataEntrada);
+        return cpf + "_" + placa + "_" + sdf.format(df);
     }
     
     @Override

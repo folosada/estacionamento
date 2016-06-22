@@ -33,6 +33,8 @@
                   <Component id="jScrollPane1" alignment="0" pref="544" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="excluirJButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="salvarJButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -50,7 +52,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panel_add_data_hora" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="salvarJButton" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="salvarJButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="excluirJButton" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="176" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
@@ -321,6 +326,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salvarJButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="excluirJButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Excluir"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="excluirJButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

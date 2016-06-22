@@ -55,4 +55,9 @@ public class Pessoa implements Serializable, Comparable {
         return compare;
     }
     
+    @Override
+    public String toString() {
+        return this.getNome();
+    }
+    
 }

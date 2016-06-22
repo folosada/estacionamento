@@ -41,7 +41,7 @@ public class Veiculo implements Serializable, Comparable {
     
     @Override
     public boolean equals(Object obj) {
-        return this.getPlaca().equals(((String) obj));
+        return this.getPlaca().equals(((Veiculo) obj).getPlaca());
     }
 
     @Override
@@ -51,6 +51,11 @@ public class Veiculo implements Serializable, Comparable {
             compare = this.placa.compareTo(((Veiculo) o).getPlaca());
         }
         return compare;
+    }
+    
+    @Override
+    public String toString() {
+        return this.getNome();
     }
 
 }

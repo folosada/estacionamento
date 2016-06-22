@@ -25,28 +25,26 @@ import java.util.List;
  */
 public class Arquivo<T> {
     private static final Arquivo ARQUIVO = new Arquivo();
-    private static FileSystem system = FileSystems.getDefault();
-    private static final String separador = system.getSeparator() + system.getSeparator();
     
     public static Arquivo getInstance() {
         return Arquivo.ARQUIVO;
     }
     
     public void salvar(T info, String chave, String diretorio) throws IOException{
-        Path arquivo = Paths.get(diretorio + separador + chave);
+        Path arquivo = Paths.get(diretorio + FileSystems.getDefault().getSeparator() + chave);
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo.toString()));
         oos.writeObject(info);
         oos.close();
     }
     
     public void excluir(String chave, String diretorio) throws IOException{
-        Path arquivo = Paths.get(diretorio + separador + chave);
+        Path arquivo = Paths.get(diretorio + FileSystems.getDefault().getSeparator() + chave);
         Files.deleteIfExists(arquivo);
     }
     
     public T recuperar(String chave, String diretorio) throws IOException, ClassNotFoundException{
         ObjectInputStream ois;
-        Path arquivo = Paths.get(diretorio + separador + chave);        
+        Path arquivo = Paths.get(diretorio + FileSystems.getDefault().getSeparator() + chave);        
         ois = new ObjectInputStream(new FileInputStream(arquivo.toString()));
         T entidade = (T) ois.readObject();
         ois.close();
@@ -63,7 +61,8 @@ public class Arquivo<T> {
         
 	for (int j = afile.length; i < j; i++) {
             File arquivos = afile[i];
-            ois = new ObjectInputStream(new FileInputStream(arquivo.toString() + separador + arquivos.getName()));
+            ois = new ObjectInputStream(new FileInputStream(arquivo.toString() + 
+                    FileSystems.getDefault().getSeparator() + arquivos.getName()));
             T entidade = (T) ois.readObject();
             lista.add(entidade);
             ois.close();
@@ -73,7 +72,7 @@ public class Arquivo<T> {
     }
     
     public static void criarDiretorio(String diretorio) throws Exception {
-        diretorio = diretorio.endsWith("\\") ? diretorio : diretorio + "\\";
+        diretorio += FileSystems.getDefault().getSeparator();
         if (!Files.exists(Paths.get(diretorio))) {
             Files.createDirectory(Paths.get(diretorio));
         }

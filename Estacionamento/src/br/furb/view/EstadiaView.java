@@ -9,7 +9,9 @@ import br.furb.pojo.Estadia;
 import br.furb.pojo.Pessoa;
 import br.furb.pojo.Veiculo;
 import br.furb.controller.Controller;
+import br.furb.controller.EstadiaController;
 import br.furb.factory.ParkFactory;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -61,23 +63,15 @@ public class EstadiaView extends javax.swing.JDialog implements View{
                 if (e.getValueIsAdjusting())
                     return;
                 int selected = estadiasJTable.getSelectedRow();
-//                cpfJFormattedTextField.setText((String) estadiasJTable.getValueAt(selected, 0));
-                nomePessoaJTextField.setText((String) estadiasJTable.getValueAt(selected, 0));
-                nomeVeiculoJTextField.setText((String) estadiasJTable.getValueAt(selected, 1));
-                placaJFormattedTextField.setText((String) estadiasJTable.getValueAt(selected, 2));
+                pessoa = (Pessoa) estadiasJTable.getValueAt(selected, 0);
+                cpfJFormattedTextField.setText(pessoa.getCpf());
+                nomePessoaJTextField.setText(pessoa.getNome());
+                veiculo = (Veiculo) estadiasJTable.getValueAt(selected, 1);
+                nomeVeiculoJTextField.setText(veiculo.getNome());
+                placaJFormattedTextField.setText(veiculo.getPlaca());
                 dataEntradaJFormattedTextField.setText((String) estadiasJTable.getValueAt(selected, 3));
-                dataSaidaJFormattedTextField.setText((String) estadiasJTable.getValueAt(selected, 4));
-                Estadia estadia;
-                try {
-                    estadia = (Estadia) recuperar(Estadia.formatarChave(cpfJFormattedTextField.getText(),
-                            placaJFormattedTextField.getText(),
-                            dataEntradaJFormattedTextField.getText()));
-                    pessoa = estadia.getPessoa();
-                    veiculo = estadia.getVeiculo();
-                } catch (ParseException ex) {
-                    Logger.getLogger(EstadiaView.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
+                dataSaidaJFormattedTextField.setText((String) estadiasJTable.getValueAt(selected, 4)); 
+                dataSaidaJFormattedTextField.setEnabled("  /  /       :  ".equals(dataSaidaJFormattedTextField.getText()));
             }
         });
     }
@@ -111,6 +105,7 @@ public class EstadiaView extends javax.swing.JDialog implements View{
         jScrollPane1 = new javax.swing.JScrollPane();
         estadiasJTable = new javax.swing.JTable();
         salvarJButton = new javax.swing.JButton();
+        excluirJButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro de Estadia");
@@ -286,6 +281,13 @@ public class EstadiaView extends javax.swing.JDialog implements View{
             }
         });
 
+        excluirJButton.setText("Excluir");
+        excluirJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirJButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -299,6 +301,8 @@ public class EstadiaView extends javax.swing.JDialog implements View{
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(excluirJButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(salvarJButton)))
                 .addContainerGap())
         );
@@ -312,7 +316,9 @@ public class EstadiaView extends javax.swing.JDialog implements View{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_add_data_hora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(salvarJButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(salvarJButton)
+                    .addComponent(excluirJButton))
                 .addGap(10, 10, 10)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -345,26 +351,55 @@ public class EstadiaView extends javax.swing.JDialog implements View{
 
     private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
         try {
-            Estadia estadia = new Estadia();
-            estadia.setPessoa(pessoa);
-            estadia.setVeiculo(veiculo);
-            estadia.setDataEntrada(new Date());
-            if (this.recuperar(estadia.getChave()) != null){
-                String message = "Já exite uma Estadia cadastrada, deseja substituir?";
-                String title = "Confirmação";
-                int reply = JOptionPane.showConfirmDialog(this, message, title, JOptionPane.YES_NO_OPTION);
-                if (reply == JOptionPane.YES_OPTION){
+            if (!"  /  /       :  ".equals(dataEntradaJFormattedTextField.getText()) &&
+                    "  /  /       :  ".equals(dataSaidaJFormattedTextField.getText())) {                
+                Estadia estadia = (Estadia) this.recuperar(Estadia.formatarChave(pessoa.getCpf(), 
+                        veiculo.getPlaca(), dataEntradaJFormattedTextField.getText()));
+                estadia.setDataSaida(DateFormat.getInstance().parse(dataSaidaJFormattedTextField.getText()));
+                if (JOptionPane.showConfirmDialog(this, "Tem certeza que deseja finalizar a estadia?", 
+                        "Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     this.salvar(estadia);
                     this.atualizaTabela();
                 }
             } else {
-                this.salvar(estadia);
-                this.atualizaTabela();
+                if (this.existeVeiculo(veiculo)) {
+                    JOptionPane.showMessageDialog(this, "O veículo selecionado já está no estacionamento!");
+                    return;
+                }
+                Estadia estadia = new Estadia();
+                estadia.setPessoa(pessoa);
+                estadia.setVeiculo(veiculo);
+                estadia.setDataEntrada(new Date());
+                if (this.recuperar(estadia.getChave()) != null){
+                    String message = "Já exite uma Estadia cadastrada, deseja substituir?";
+                    String title = "Confirmação";
+                    int reply = JOptionPane.showConfirmDialog(this, message, title, JOptionPane.YES_NO_OPTION);
+                    if (reply == JOptionPane.YES_OPTION){
+                        this.salvar(estadia);
+                        this.atualizaTabela();
+                    }
+                } else {
+                    this.salvar(estadia);
+                    this.atualizaTabela();
+                }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+            JOptionPane.showMessageDialog(this, "Não foi possível registrar a estadia!\n" + e.getMessage());
         }
     }//GEN-LAST:event_salvarJButtonActionPerformed
+
+    private void excluirJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirJButtonActionPerformed
+        if (pessoa != null && veiculo != null && !"  /  /       :  ".equals(dataEntradaJFormattedTextField.getText())) 
+            try {
+                if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro de estadia?", 
+                        "Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    this.excluir(Estadia.formatarChave(pessoa.getCpf(), veiculo.getPlaca(), dataEntradaJFormattedTextField.getText()));
+                    this.atualizaTabela();
+                }
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao excluir registro de estadia!\n" + ex.getMessage());
+            }
+    }//GEN-LAST:event_excluirJButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -407,6 +442,10 @@ public class EstadiaView extends javax.swing.JDialog implements View{
             }
         });
     }
+    
+    public boolean existeVeiculo(Veiculo veiculo) throws Exception {
+        return ((EstadiaController) ParkFactory.getFactory("Estadia").createController()).existeVeiculo(veiculo);
+    }
 
     @Override
     public void salvar(Object info) {
@@ -441,7 +480,12 @@ public class EstadiaView extends javax.swing.JDialog implements View{
 
     @Override
     public void excluir(String chave){
-        //Implementar aqui
+        Controller estadiaController = ParkFactory.getFactory("Estadia").createController();
+        try {
+            estadiaController.excluir(chave);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao excluir registro de estadia!\n" + ex.getMessage());
+        }
     }
     
     @Override
@@ -465,7 +509,7 @@ public class EstadiaView extends javax.swing.JDialog implements View{
         for (Estadia estadia : estadias) {
             SimpleDateFormat sdfEntrada = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             SimpleDateFormat sdfSaida = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-            dtm.addRow(new String[]{estadia.getPessoa().getNome(), estadia.getVeiculo().getNome(),
+            dtm.addRow(new Object[]{estadia.getPessoa(), estadia.getVeiculo(),
                                     estadia.getVeiculo().getPlaca(), 
                                     sdfEntrada.format(estadia.getDataEntrada()), 
                                     estadia.getDataSaida() == null ? "" : sdfSaida.format(estadia.getDataSaida()), 
@@ -481,6 +525,7 @@ public class EstadiaView extends javax.swing.JDialog implements View{
     private javax.swing.JFormattedTextField dataEntradaJFormattedTextField;
     private javax.swing.JFormattedTextField dataSaidaJFormattedTextField;
     private javax.swing.JTable estadiasJTable;
+    private javax.swing.JButton excluirJButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblEntrada;
     private javax.swing.JLabel lblPessoaNome;

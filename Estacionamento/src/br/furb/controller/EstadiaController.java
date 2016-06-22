@@ -7,6 +7,7 @@ package br.furb.controller;
 
 import br.furb.factory.ParkFactory;
 import br.furb.model.Model;
+import br.furb.pojo.Estadia;
 import java.util.List;
 
 /**
@@ -37,6 +38,16 @@ public class EstadiaController implements Controller {
     public List recuperar() throws Exception {
         Model estadiaModel = ParkFactory.getFactory("Estadia").createModel();
         return estadiaModel.recuperar();
+    }
+    
+    public boolean existeVeiculo(Object veiculo) throws Exception {
+        List<Estadia> estadias = this.recuperar();
+        for (Estadia estadia : estadias) {
+            if (estadia.getVeiculo().equals(veiculo) && estadia.getDataSaida() == null) {
+                return true;
+            }
+        }
+        return false;
     }
     
 }
