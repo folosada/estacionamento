@@ -31,6 +31,8 @@ public class VeiculoView extends javax.swing.JDialog implements View {
         super((JFrame) form, true);
         initComponents();
         setLocationRelativeTo(null);
+        DefaultTableModel dtm = new DefaultTableModel(new String[]{"Placa", "Nome"}, 0);
+        veiculosJTable.setModel(dtm);
         atualizaTabela();
         veiculosJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
@@ -308,12 +310,13 @@ public class VeiculoView extends javax.swing.JDialog implements View {
 
     @Override
     public void atualizaTabela() {
-        DefaultTableModel dtm = new DefaultTableModel(new String[]{"Placa", "Nome"}, 0);
+        veiculosJTable.getSelectionModel().setValueIsAdjusting(true);
+        DefaultTableModel dtm = (DefaultTableModel) veiculosJTable.getModel();
+        dtm.setRowCount(0);
         LinkedList<Veiculo> veiculos = (LinkedList) this.recuperar();
         veiculos.sort(null);
         for (Veiculo veiculo : veiculos) {
             dtm.addRow(new String[]{veiculo.getPlaca(), veiculo.getNome()});
         }
-        veiculosJTable.setModel((TableModel) dtm);
     }
 }
