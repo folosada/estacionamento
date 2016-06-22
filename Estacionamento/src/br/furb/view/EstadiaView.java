@@ -352,7 +352,7 @@ public class EstadiaView extends javax.swing.JDialog implements View{
     private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
         try {
             if (!"  /  /       :  ".equals(dataEntradaJFormattedTextField.getText()) &&
-                    "  /  /       :  ".equals(dataSaidaJFormattedTextField.getText())) {                
+                    !"  /  /       :  ".equals(dataSaidaJFormattedTextField.getText())) {                
                 Estadia estadia = (Estadia) this.recuperar(Estadia.formatarChave(pessoa.getCpf(), 
                         veiculo.getPlaca(), dataEntradaJFormattedTextField.getText()));
                 estadia.setDataSaida(DateFormat.getInstance().parse(dataSaidaJFormattedTextField.getText()));
