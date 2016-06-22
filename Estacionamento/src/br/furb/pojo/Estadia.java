@@ -108,9 +108,9 @@ public class Estadia implements Serializable, Comparable {
 
             double diferenca = dataFinal.getTimeInMillis() - dataInicial.getTimeInMillis();
 
-            double diferencaMin = diferenca / (60 * 1000);
+            double diferencaMin = (diferenca / 1000.0) / 60.0;
 
-            BigDecimal valorExato = new BigDecimal((PRECO / 60) * diferencaMin)  
+            BigDecimal valorExato = new BigDecimal((PRECO / 60.0) * diferencaMin)  
             .setScale(2, RoundingMode.HALF_DOWN);  
             
             return valorExato.doubleValue();
