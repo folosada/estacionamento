@@ -6,6 +6,7 @@
 package br.furb.view;
 
 import br.furb.factory.ParkFactory;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -18,6 +19,13 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
+        try {
+            ParkFactory.getFactory("Pessoa").createModel().criarDiretorio();
+            ParkFactory.getFactory("Veiculo").createModel().criarDiretorio();
+            ParkFactory.getFactory("Estadia").createModel().criarDiretorio();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Problemas ao criar diretórios necessários do sistema!\n" + e.getMessage());
+        }
     }
 
     /**

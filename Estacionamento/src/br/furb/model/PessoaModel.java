@@ -33,5 +33,10 @@ public class PessoaModel implements Model {
     public List recuperar() throws Exception {
         return Arquivo.getInstance().recuperar(CAMINHO_PESSOA);
     }
+
+    @Override
+    public void criarDiretorio() throws Exception {
+        Arquivo.criarDiretorio(CAMINHO_PESSOA);
+    }
     
 }

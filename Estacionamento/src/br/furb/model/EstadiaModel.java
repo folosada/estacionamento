@@ -32,5 +32,10 @@ public class EstadiaModel implements Model {
     public List recuperar() throws Exception {
         return Arquivo.getInstance().recuperar(CAMINHO_ESTADIA);
     }
+
+    @Override
+    public void criarDiretorio() throws Exception {
+        Arquivo.criarDiretorio(CAMINHO_ESTADIA);
+    }
     
 }

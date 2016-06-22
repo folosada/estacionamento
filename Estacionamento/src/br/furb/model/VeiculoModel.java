@@ -32,5 +32,10 @@ public class VeiculoModel implements Model {
     public List recuperar() throws Exception {
         return Arquivo.getInstance().recuperar(CAMINHO_VEICULO);
     }
+
+    @Override
+    public void criarDiretorio() throws Exception {
+        Arquivo.criarDiretorio(CAMINHO_VEICULO);
+    }
     
 }

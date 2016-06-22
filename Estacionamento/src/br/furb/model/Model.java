@@ -17,4 +17,6 @@ public interface Model {
     public abstract Object recuperar(String chave) throws Exception;
     
     public abstract List recuperar() throws Exception;
+    
+    public abstract void criarDiretorio() throws Exception;
 }

@@ -66,4 +66,11 @@ public class Arquivo<T> {
         
         return lista;
     }
+    
+    public static void criarDiretorio(String diretorio) throws Exception {
+        diretorio = diretorio.endsWith("\\") ? diretorio : diretorio + "\\";
+        if (!Files.exists(Paths.get(diretorio))) {
+            Files.createDirectory(Paths.get(diretorio));
+        }
+    }
 }
