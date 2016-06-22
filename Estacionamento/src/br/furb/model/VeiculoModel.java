@@ -40,7 +40,7 @@ public class VeiculoModel implements Model {
 
     @Override
     public void criarDiretorio() throws Exception {
-        Arquivo.criarDiretorio(CAMINHO_VEICULO);
+        Arquivo.getInstance().criarDiretorio(CAMINHO_VEICULO);
     }
     
 }

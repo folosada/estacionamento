@@ -40,7 +40,7 @@ public class EstadiaModel implements Model {
 
     @Override
     public void criarDiretorio() throws Exception {
-        Arquivo.criarDiretorio(CAMINHO_ESTADIA);
+        Arquivo.getInstance().criarDiretorio(CAMINHO_ESTADIA);
     }
     
 }

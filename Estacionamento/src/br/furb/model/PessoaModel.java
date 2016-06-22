@@ -40,6 +40,6 @@ public class PessoaModel implements Model {
 
     @Override
     public void criarDiretorio() throws Exception {
-        Arquivo.criarDiretorio(CAMINHO_PESSOA);
+        Arquivo.getInstance().criarDiretorio(CAMINHO_PESSOA);
     }
 }

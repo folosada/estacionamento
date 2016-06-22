@@ -70,7 +70,7 @@ public class Arquivo<T> {
         return lista;
     }
     
-    public static void criarDiretorio(String diretorio) throws Exception {
+    public void criarDiretorio(String diretorio) throws Exception {
         diretorio += FileSystems.getDefault().getSeparator();
         if (!Files.exists(Paths.get(diretorio))) {
             Files.createDirectory(Paths.get(diretorio));
