@@ -383,6 +383,13 @@ public class EstadiaView extends javax.swing.JDialog implements View{
                     this.atualizaTabela();
                 }
             }
+            this.cpfJFormattedTextField.setText("");
+            this.nomePessoaJTextField.setText("");
+            this.placaJFormattedTextField.setText("");
+            this.nomeVeiculoJTextField.setText("");
+            this.dataEntradaJFormattedTextField.setText("");
+            this.dataSaidaJFormattedTextField.setText("");
+            this.dataSaidaJFormattedTextField.setEnabled(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Não foi possível registrar a estadia!\n" + e.getMessage());
         }
@@ -394,6 +401,13 @@ public class EstadiaView extends javax.swing.JDialog implements View{
                 if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro de estadia?", 
                         "Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     this.excluir(Estadia.formatarChave(pessoa.getCpf(), veiculo.getPlaca(), dataEntradaJFormattedTextField.getText()));
+                    this.cpfJFormattedTextField.setText("");
+                    this.nomePessoaJTextField.setText("");
+                    this.placaJFormattedTextField.setText("");
+                    this.nomeVeiculoJTextField.setText("");
+                    this.dataEntradaJFormattedTextField.setText("");
+                    this.dataSaidaJFormattedTextField.setText("");
+                    this.dataSaidaJFormattedTextField.setEnabled(true);
                     this.atualizaTabela();
                 }
             } catch (ParseException ex) {

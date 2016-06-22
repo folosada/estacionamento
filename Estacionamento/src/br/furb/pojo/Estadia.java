@@ -6,6 +6,8 @@
 package br.furb.pojo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -72,12 +74,17 @@ public class Estadia implements Serializable, Comparable {
     }
 
     public void setDataSaida(Date dataSaida) {
-        if (dataSaida.after(dataEntrada) && dataSaida != null){
+        try {
+            Date data = dataSaida;
+            if (dataSaida.after(dataEntrada) && dataSaida != null){
             this.dataSaida = dataSaida;
-        } else if(dataSaida == null){
-            throw new IllegalArgumentException("A Data de Saída deve ser informada.");
-        } else {
-            throw new IllegalArgumentException("A Data de Saída deve ser maior que a Data de Entrada.");
+            } else if(dataSaida == null){
+                throw new IllegalArgumentException("A Data de Saída deve ser informada.");
+            } else {
+                throw new IllegalArgumentException("A Data de Saída deve ser maior que a Data de Entrada.");
+            }
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Data Inválida.");
         }
     }
     
@@ -99,11 +106,14 @@ public class Estadia implements Serializable, Comparable {
             Calendar dataFinal = Calendar.getInstance();
             dataFinal.setTime(dataSaida);
 
-            long diferenca = dataFinal.getTimeInMillis() - dataInicial.getTimeInMillis();
+            double diferenca = dataFinal.getTimeInMillis() - dataInicial.getTimeInMillis();
 
-            long diferencaMin = diferenca / (60 * 1000);
+            double diferencaMin = diferenca / (60 * 1000);
 
-            return (PRECO / 60) * diferencaMin;
+            BigDecimal valorExato = new BigDecimal((PRECO / 60) * diferencaMin)  
+            .setScale(2, RoundingMode.HALF_DOWN);  
+            
+            return valorExato.doubleValue();
         }
         return 0.0;
     }

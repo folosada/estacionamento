@@ -20,5 +20,5 @@ public interface Model {
     
     public abstract List recuperar() throws Exception;
     
-    public void criarDiretorio() throws Exception;
+    public abstract void criarDiretorio() throws Exception;
 }
