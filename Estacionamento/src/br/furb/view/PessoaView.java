@@ -26,11 +26,13 @@ public class PessoaView extends javax.swing.JDialog implements View {
     /**
      * Creates new form PessoaView
      */
-    
+        
     public PessoaView(Object parent) {
         super((JFrame) parent, true);
         initComponents();  
         setLocationRelativeTo(null);
+        DefaultTableModel dtm = new DefaultTableModel(new String[]{"CPF", "Nome"}, 0);
+        pessoasJTable.setModel(dtm);
         this.atualizaTabela();
         pessoasJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
@@ -287,13 +289,14 @@ public class PessoaView extends javax.swing.JDialog implements View {
     }
     
     @Override
-    public void atualizaTabela() {
-        DefaultTableModel dtm = new DefaultTableModel(new String[]{"CPF", "Nome"}, 0);
+    public void atualizaTabela() {  
+        pessoasJTable.getSelectionModel().setValueIsAdjusting(true);
+        DefaultTableModel dtm = (DefaultTableModel) pessoasJTable.getModel();        
+        dtm.setRowCount(0);
         LinkedList<Pessoa> pessoas = (LinkedList) this.recuperar();
         pessoas.sort(null);
         for (Pessoa pessoa : pessoas) {
             dtm.addRow(new String[]{pessoa.getCpf(), pessoa.getNome()});
         }
-        pessoasJTable.setModel((TableModel) dtm);
     }
 }

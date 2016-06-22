@@ -45,6 +45,9 @@ public class EstadiaView extends javax.swing.JDialog implements View{
         super((JFrame) form, true);
         initComponents();
         setLocationRelativeTo(null);
+        DefaultTableModel dtm = new DefaultTableModel(new String[]{"Nome", "Veículo", "Placa", "D. Entrada"
+                                                                   , "D. Saída", "Preço (R$)"}, 0);
+        estadiasJTable.setModel(dtm);
         cpfJFormattedTextField.setEnabled(false);
         nomePessoaJTextField.setEnabled(false);
         nomeVeiculoJTextField.setEnabled(false);
@@ -445,8 +448,9 @@ public class EstadiaView extends javax.swing.JDialog implements View{
     
     @Override
     public void atualizaTabela() {
-        DefaultTableModel dtm = new DefaultTableModel(new String[]{"Nome", "Veículo", "Placa", "D. Entrada"
-                                                                   , "D. Saída", "Preço (R$)"}, 0);
+        estadiasJTable.getSelectionModel().setValueIsAdjusting(true);
+        DefaultTableModel dtm = (DefaultTableModel) estadiasJTable.getModel();
+        dtm.setRowCount(0);
         LinkedList<Estadia> estadias = (LinkedList) this.recuperar();
         estadias.sort(null);
         for (Estadia estadia : estadias) {
@@ -458,7 +462,6 @@ public class EstadiaView extends javax.swing.JDialog implements View{
                                     estadia.getDataSaida() == null ? "" : sdfSaida.format(estadia.getDataSaida()), 
                                     estadia.calcularValor().toString()});
         }
-        estadiasJTable.setModel((TableModel) dtm);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
