@@ -30,6 +30,11 @@
                   <Component id="panel_add_pessoa" max="32767" attributes="0"/>
                   <Component id="panel_add_veiculo" alignment="0" max="32767" attributes="0"/>
                   <Component id="panel_add_data_hora" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" pref="544" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="salvarJButton" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -39,11 +44,15 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="panel_add_pessoa" min="-2" pref="70" max="-2" attributes="0"/>
+              <Component id="panel_add_pessoa" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panel_add_veiculo" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panel_add_data_hora" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="salvarJButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="176" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -70,7 +79,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="lblPessoaNome" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="nomeJTextField" min="-2" pref="238" max="-2" attributes="0"/>
+                          <Component id="nomePessoaJTextField" min="-2" pref="238" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="cpfJLabel" min="-2" max="-2" attributes="0"/>
@@ -78,9 +87,9 @@
                           <Component id="cpfJFormattedTextField" min="-2" pref="238" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnCarregarPessoa" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="135" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -89,13 +98,13 @@
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblPessoaNome" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="nomeJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnCarregarPessoa" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="nomePessoaJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="cpfJFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cpfJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCarregarPessoa" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -113,7 +122,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cpfJFormattedTextFieldActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="nomeJTextField">
+        <Component class="javax.swing.JTextField" name="nomePessoaJTextField">
         </Component>
         <Component class="javax.swing.JLabel" name="lblPessoaNome">
           <Properties>
@@ -157,9 +166,11 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="nomeJTextField1" pref="238" max="32767" attributes="0"/>
+                      <Component id="nomeVeiculoJTextField" pref="238" max="32767" attributes="0"/>
                       <Component id="placaJFormattedTextField" max="32767" attributes="0"/>
                   </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="btnCarregarVeiculo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -169,12 +180,13 @@
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblVeiculoNome" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="nomeJTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="nomeVeiculoJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="placaJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="placaJFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCarregarVeiculo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -198,7 +210,15 @@
             <Property name="text" type="java.lang.String" value="Nome:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="nomeJTextField1">
+        <Component class="javax.swing.JTextField" name="nomeVeiculoJTextField">
+        </Component>
+        <Component class="javax.swing.JButton" name="btnCarregarVeiculo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Carregar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCarregarVeiculoActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -223,9 +243,9 @@
                       <Component id="lblSaida" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="dataSaidaJFormattedTextField" pref="226" max="32767" attributes="0"/>
-                      <Component id="dataEntradaJFormattedTextField" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="dataSaidaJFormattedTextField" min="-2" pref="226" max="-2" attributes="0"/>
+                      <Component id="dataEntradaJFormattedTextField" min="-2" pref="226" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -267,12 +287,41 @@
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="dataEntradaJFormattedTextField">
           <Properties>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-              <Format subtype="1" type="2"/>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+              <Format format="##/##/#### ##:##" subtype="-1" type="5"/>
             </Property>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="estadiasJTable">
+          <Properties>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="4" rowCount="4">
+                <Column editable="true" title="Title 1" type="java.lang.Object"/>
+                <Column editable="true" title="Title 2" type="java.lang.Object"/>
+                <Column editable="true" title="Title 3" type="java.lang.Object"/>
+                <Column editable="true" title="Title 4" type="java.lang.Object"/>
+              </Table>
+            </Property>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="salvarJButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Salvar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salvarJButtonActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

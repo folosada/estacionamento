@@ -27,6 +27,7 @@ public class Arquivo<T> {
     private static final Arquivo ARQUIVO = new Arquivo();
     private static FileSystem system = FileSystems.getDefault();
     private static final String separador = system.getSeparator() + system.getSeparator();
+    
     public static Arquivo getInstance() {
         return Arquivo.ARQUIVO;
     }

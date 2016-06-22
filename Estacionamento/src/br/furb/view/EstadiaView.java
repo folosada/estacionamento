@@ -5,16 +5,34 @@
  */
 package br.furb.view;
 
+import br.furb.Estadia;
+import br.furb.Pessoa;
+import br.furb.Veiculo;
+import br.furb.controller.Controller;
 import br.furb.factory.ParkFactory;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
  * @author Gabriel Bernardi
  */
 public class EstadiaView extends javax.swing.JDialog implements View{
-
+    
+    private Pessoa pessoa = null;
+    private Veiculo veiculo = null;
+    
     /**
      * Creates new form EstadiaView
      */
@@ -27,6 +45,38 @@ public class EstadiaView extends javax.swing.JDialog implements View{
         super((JFrame) form, true);
         initComponents();
         setLocationRelativeTo(null);
+        cpfJFormattedTextField.setEnabled(false);
+        nomePessoaJTextField.setEnabled(false);
+        nomeVeiculoJTextField.setEnabled(false);
+        placaJFormattedTextField.setEnabled(false);
+        dataEntradaJFormattedTextField.setEnabled(false);
+        this.atualizaTabela();
+        estadiasJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (e.getValueIsAdjusting())
+                    return;
+                int selected = estadiasJTable.getSelectedRow();
+//                cpfJFormattedTextField.setText((String) estadiasJTable.getValueAt(selected, 0));
+                nomePessoaJTextField.setText((String) estadiasJTable.getValueAt(selected, 0));
+                nomeVeiculoJTextField.setText((String) estadiasJTable.getValueAt(selected, 1));
+                placaJFormattedTextField.setText((String) estadiasJTable.getValueAt(selected, 2));
+                dataEntradaJFormattedTextField.setText((String) estadiasJTable.getValueAt(selected, 3));
+                dataSaidaJFormattedTextField.setText((String) estadiasJTable.getValueAt(selected, 4));
+                Estadia estadia;
+                try {
+                    estadia = (Estadia) recuperar(Estadia.formatarChave(cpfJFormattedTextField.getText(),
+                            placaJFormattedTextField.getText(),
+                            dataEntradaJFormattedTextField.getText()));
+                    pessoa = estadia.getPessoa();
+                    veiculo = estadia.getVeiculo();
+                } catch (ParseException ex) {
+                    Logger.getLogger(EstadiaView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+        });
     }
 
     /**
@@ -40,7 +90,7 @@ public class EstadiaView extends javax.swing.JDialog implements View{
 
         panel_add_pessoa = new javax.swing.JPanel();
         cpfJFormattedTextField = new javax.swing.JFormattedTextField();
-        nomeJTextField = new javax.swing.JTextField();
+        nomePessoaJTextField = new javax.swing.JTextField();
         lblPessoaNome = new javax.swing.JLabel();
         cpfJLabel = new javax.swing.JLabel();
         btnCarregarPessoa = new javax.swing.JButton();
@@ -48,12 +98,16 @@ public class EstadiaView extends javax.swing.JDialog implements View{
         placaJFormattedTextField = new javax.swing.JFormattedTextField();
         placaJLabel = new javax.swing.JLabel();
         lblVeiculoNome = new javax.swing.JLabel();
-        nomeJTextField1 = new javax.swing.JTextField();
+        nomeVeiculoJTextField = new javax.swing.JTextField();
+        btnCarregarVeiculo = new javax.swing.JButton();
         panel_add_data_hora = new javax.swing.JPanel();
         dataSaidaJFormattedTextField = new javax.swing.JFormattedTextField();
         lblEntrada = new javax.swing.JLabel();
         lblSaida = new javax.swing.JLabel();
         dataEntradaJFormattedTextField = new javax.swing.JFormattedTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        estadiasJTable = new javax.swing.JTable();
+        salvarJButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro de Estadia");
@@ -92,26 +146,26 @@ public class EstadiaView extends javax.swing.JDialog implements View{
                     .addGroup(panel_add_pessoaLayout.createSequentialGroup()
                         .addComponent(lblPessoaNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nomeJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(nomePessoaJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_add_pessoaLayout.createSequentialGroup()
                         .addComponent(cpfJLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cpfJFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(39, 39, 39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCarregarPessoa)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel_add_pessoaLayout.setVerticalGroup(
             panel_add_pessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_add_pessoaLayout.createSequentialGroup()
                 .addGroup(panel_add_pessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPessoaNome)
-                    .addComponent(nomeJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCarregarPessoa))
+                    .addComponent(nomePessoaJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_add_pessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cpfJFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cpfJLabel))
+                    .addComponent(cpfJLabel)
+                    .addComponent(btnCarregarPessoa))
                 .addContainerGap())
         );
 
@@ -127,6 +181,13 @@ public class EstadiaView extends javax.swing.JDialog implements View{
 
         lblVeiculoNome.setText("Nome:");
 
+        btnCarregarVeiculo.setText("Carregar");
+        btnCarregarVeiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarregarVeiculoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel_add_veiculoLayout = new javax.swing.GroupLayout(panel_add_veiculo);
         panel_add_veiculo.setLayout(panel_add_veiculoLayout);
         panel_add_veiculoLayout.setHorizontalGroup(
@@ -138,8 +199,10 @@ public class EstadiaView extends javax.swing.JDialog implements View{
                     .addComponent(lblVeiculoNome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_add_veiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(nomeJTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                    .addComponent(nomeVeiculoJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                     .addComponent(placaJFormattedTextField))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCarregarVeiculo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel_add_veiculoLayout.setVerticalGroup(
@@ -147,11 +210,12 @@ public class EstadiaView extends javax.swing.JDialog implements View{
             .addGroup(panel_add_veiculoLayout.createSequentialGroup()
                 .addGroup(panel_add_veiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblVeiculoNome)
-                    .addComponent(nomeJTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
+                    .addComponent(nomeVeiculoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
                 .addGroup(panel_add_veiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(placaJLabel)
-                    .addComponent(placaJFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(placaJFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCarregarVeiculo)))
         );
 
         panel_add_data_hora.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Data e Hora", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 13))); // NOI18N
@@ -166,7 +230,11 @@ public class EstadiaView extends javax.swing.JDialog implements View{
 
         lblSaida.setText("Saida:");
 
-        dataEntradaJFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
+        try {
+            dataEntradaJFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/#### ##:##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout panel_add_data_horaLayout = new javax.swing.GroupLayout(panel_add_data_hora);
         panel_add_data_hora.setLayout(panel_add_data_horaLayout);
@@ -178,9 +246,9 @@ public class EstadiaView extends javax.swing.JDialog implements View{
                     .addComponent(lblEntrada)
                     .addComponent(lblSaida))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel_add_data_horaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(dataSaidaJFormattedTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
-                    .addComponent(dataEntradaJFormattedTextField))
+                .addGroup(panel_add_data_horaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dataSaidaJFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dataEntradaJFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel_add_data_horaLayout.setVerticalGroup(
@@ -195,6 +263,26 @@ public class EstadiaView extends javax.swing.JDialog implements View{
                     .addComponent(lblSaida)))
         );
 
+        estadiasJTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(estadiasJTable);
+
+        salvarJButton.setText("Salvar");
+        salvarJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvarJButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -204,18 +292,26 @@ public class EstadiaView extends javax.swing.JDialog implements View{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panel_add_pessoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panel_add_veiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panel_add_data_hora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panel_add_data_hora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(salvarJButton)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panel_add_pessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel_add_pessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_add_veiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_add_data_hora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(salvarJButton)
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -227,9 +323,41 @@ public class EstadiaView extends javax.swing.JDialog implements View{
     }//GEN-LAST:event_cpfJFormattedTextFieldActionPerformed
 
     private void btnCarregarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarPessoaActionPerformed
-        View pessoa = ParkFactory.getFactory("Pessoa").createView(this);
-        pessoa.abreJanelaSelecao();
+        View pessoaView = ParkFactory.getFactory("Pessoa").createView(this.getParent());
+        pessoa = (Pessoa) pessoaView.abreJanelaSelecao();
+        cpfJFormattedTextField.setText(pessoa.getCpf());
+        nomePessoaJTextField.setText(pessoa.getNome());
     }//GEN-LAST:event_btnCarregarPessoaActionPerformed
+
+    private void btnCarregarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarVeiculoActionPerformed
+        View veiculoView = ParkFactory.getFactory("Veiculo").createView(this.getParent());
+        veiculo = (Veiculo) veiculoView.abreJanelaSelecao();
+        placaJFormattedTextField.setText(veiculo.getPlaca());
+        nomeVeiculoJTextField.setText(veiculo.getNome());
+    }//GEN-LAST:event_btnCarregarVeiculoActionPerformed
+
+    private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
+        try {
+            Estadia estadia = new Estadia();
+            estadia.setPessoa(pessoa);
+            estadia.setVeiculo(veiculo);
+            estadia.setDataEntrada(new Date());
+            if (this.recuperar(estadia.getChave()) != null){
+                String message = "Já exite uma Estadia cadastrada, deseja substituir?";
+                String title = "Confirmação";
+                int reply = JOptionPane.showConfirmDialog(this, message, title, JOptionPane.YES_NO_OPTION);
+                if (reply == JOptionPane.YES_OPTION){
+                    this.salvar(estadia);
+                    this.atualizaTabela();
+                }
+            } else {
+                this.salvar(estadia);
+                this.atualizaTabela();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_salvarJButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -275,17 +403,33 @@ public class EstadiaView extends javax.swing.JDialog implements View{
 
     @Override
     public void salvar(Object info) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Controller estadiaController = ParkFactory.getFactory("Estadia").createController();
+        try {
+            estadiaController.salvar(info);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar veículo!\n" + ex.getMessage());
+        }
     }
 
     @Override
     public Object recuperar(String chave) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Controller estadiaController = ParkFactory.getFactory("Estadia").createController();
+        try {
+            return estadiaController.recuperar(chave);
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
     @Override
     public List recuperar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Controller estadiaController = ParkFactory.getFactory("Estadia").createController();
+        try {
+            return estadiaController.recuperar();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao recuperar registros!\n" + ex.getMessage());
+        }
+        return null;
     }
 
     @Override
@@ -301,25 +445,42 @@ public class EstadiaView extends javax.swing.JDialog implements View{
     
     @Override
     public void atualizaTabela() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DefaultTableModel dtm = new DefaultTableModel(new String[]{"Nome", "Veículo", "Placa", "D. Entrada"
+                                                                   , "D. Saída", "Preço (R$)"}, 0);
+        LinkedList<Estadia> estadias = (LinkedList) this.recuperar();
+        estadias.sort(null);
+        for (Estadia estadia : estadias) {
+            SimpleDateFormat sdfEntrada = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            SimpleDateFormat sdfSaida = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            dtm.addRow(new String[]{estadia.getPessoa().getNome(), estadia.getVeiculo().getNome(),
+                                    estadia.getVeiculo().getPlaca(), 
+                                    sdfEntrada.format(estadia.getDataEntrada()), 
+                                    estadia.getDataSaida() == null ? "" : sdfSaida.format(estadia.getDataSaida()), 
+                                    estadia.calcularValor().toString()});
+        }
+        estadiasJTable.setModel((TableModel) dtm);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCarregarPessoa;
+    private javax.swing.JButton btnCarregarVeiculo;
     private javax.swing.JFormattedTextField cpfJFormattedTextField;
     private javax.swing.JLabel cpfJLabel;
     private javax.swing.JFormattedTextField dataEntradaJFormattedTextField;
     private javax.swing.JFormattedTextField dataSaidaJFormattedTextField;
+    private javax.swing.JTable estadiasJTable;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblEntrada;
     private javax.swing.JLabel lblPessoaNome;
     private javax.swing.JLabel lblSaida;
     private javax.swing.JLabel lblVeiculoNome;
-    private javax.swing.JTextField nomeJTextField;
-    private javax.swing.JTextField nomeJTextField1;
+    private javax.swing.JTextField nomePessoaJTextField;
+    private javax.swing.JTextField nomeVeiculoJTextField;
     private javax.swing.JPanel panel_add_data_hora;
     private javax.swing.JPanel panel_add_pessoa;
     private javax.swing.JPanel panel_add_veiculo;
     private javax.swing.JFormattedTextField placaJFormattedTextField;
     private javax.swing.JLabel placaJLabel;
+    private javax.swing.JButton salvarJButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,6 +6,7 @@
 package br.furb;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,10 +16,13 @@ import java.util.Date;
  * @author Gabriel Bernardi
  */
 public class Estadia implements Serializable, Comparable {
+    private static final double PRECO = 3.5;
     private Pessoa pessoa;
     private Veiculo veiculo;
     private Date dataEntrada;
     private Date dataSaida;
+    
+    public Estadia(){}
     
     public Estadia(Pessoa pessoa, Veiculo veiculo, Date dataEntrada) {
         this.setPessoa(pessoa);
@@ -78,7 +82,7 @@ public class Estadia implements Serializable, Comparable {
     
     public String getChave() {
         if (this.getPessoa() != null && this.getVeiculo() != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy_HHmm");
             return this.getPessoa().getCpf() + "_" + 
                    this.getVeiculo().getPlaca() + "_" + 
                    sdf.format(this.getDataEntrada());
@@ -88,18 +92,24 @@ public class Estadia implements Serializable, Comparable {
     }
     
     public Double calcularValor(){
-        Calendar dataInicial = Calendar.getInstance();
-        dataInicial.setTime(dataEntrada);
-        Calendar dataFinal = Calendar.getInstance();
-        dataFinal.setTime(dataSaida);
+        if (this.getDataSaida() != null) {
+            Calendar dataInicial = Calendar.getInstance();
+            dataInicial.setTime(dataEntrada);
+            Calendar dataFinal = Calendar.getInstance();
+            dataFinal.setTime(dataSaida);
 
-        long diferenca = System.currentTimeMillis() - dataInicial.getTimeInMillis();
+            long diferenca = dataFinal.getTimeInMillis() - dataInicial.getTimeInMillis();
 
-        //Minutos só para teste
-        long diferencaMin = diferenca / (60 * 1000);
-        long diferencaHoras = diferenca / (60 * 60 * 1000);
+            long diferencaMin = diferenca / (60 * 1000);
 
-        return diferencaMin * 4.5;
+            return (PRECO / 60) * diferencaMin;
+        }
+        return 0.0;
+    }
+
+    public static String formatarChave(String cpf, String placa, String dataEntrada) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy_HHmm");
+        return cpf + "_" + placa + "_" + sdf.format(sdf.parse(dataEntrada));
     }
     
     @Override
