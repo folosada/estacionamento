@@ -325,15 +325,19 @@ public class EstadiaView extends javax.swing.JDialog implements View{
     private void btnCarregarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarPessoaActionPerformed
         View pessoaView = ParkFactory.getFactory("Pessoa").createView(this.getParent());
         pessoa = (Pessoa) pessoaView.abreJanelaSelecao();
-        cpfJFormattedTextField.setText(pessoa.getCpf());
-        nomePessoaJTextField.setText(pessoa.getNome());
+        if (pessoa != null) {
+            cpfJFormattedTextField.setText(pessoa.getCpf());
+            nomePessoaJTextField.setText(pessoa.getNome());
+        }
     }//GEN-LAST:event_btnCarregarPessoaActionPerformed
 
     private void btnCarregarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarVeiculoActionPerformed
         View veiculoView = ParkFactory.getFactory("Veiculo").createView(this.getParent());
         veiculo = (Veiculo) veiculoView.abreJanelaSelecao();
-        placaJFormattedTextField.setText(veiculo.getPlaca());
-        nomeVeiculoJTextField.setText(veiculo.getNome());
+        if (veiculo != null) {
+            placaJFormattedTextField.setText(veiculo.getPlaca());
+            nomeVeiculoJTextField.setText(veiculo.getNome());
+        }
     }//GEN-LAST:event_btnCarregarVeiculoActionPerformed
 
     private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
@@ -432,6 +436,11 @@ public class EstadiaView extends javax.swing.JDialog implements View{
         return null;
     }
 
+    @Override
+    public void excluir(String chave){
+        //Implementar aqui
+    }
+    
     @Override
     public void abreJanela() {
         this.setVisible(true);

@@ -22,6 +22,12 @@ public class VeiculoController implements Controller {
     }
 
     @Override
+    public void excluir(String chave) throws Exception {
+        Model veiculoModel = ParkFactory.getFactory("Veiculo").createModel();
+        veiculoModel.excluir(chave);
+    }
+    
+    @Override
     public Object recuperar(String chave) throws Exception {
         Model veiculoModel = ParkFactory.getFactory("Veiculo").createModel();
         return veiculoModel.recuperar(chave);

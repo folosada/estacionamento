@@ -22,7 +22,12 @@ public class EstadiaModel implements Model {
     public void salvar(Object info) throws Exception {
          Arquivo.getInstance().salvar(info, ((Estadia) info).getChave(), CAMINHO_ESTADIA);
     }
-
+    
+    @Override
+    public void excluir(String chave) throws Exception {
+        Arquivo.getInstance().excluir(chave, CAMINHO_ESTADIA);
+    }
+    
     @Override
     public Object recuperar(String chave) throws Exception {
         return Arquivo.getInstance().recuperar(chave, CAMINHO_ESTADIA);

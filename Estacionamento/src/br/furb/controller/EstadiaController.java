@@ -22,6 +22,12 @@ public class EstadiaController implements Controller {
     }
 
     @Override
+    public void excluir(String chave) throws Exception {
+        Model estadiaModel = ParkFactory.getFactory("Estadia").createModel();
+        estadiaModel.excluir(chave);
+    }
+    
+    @Override
     public Object recuperar(String chave) throws Exception {
         Model estadiaModel = ParkFactory.getFactory("Estadia").createModel();
         return estadiaModel.recuperar(chave);

@@ -7,7 +7,6 @@ package br.furb.model;
 
 import br.furb.pojo.Pessoa;
 import br.furb.arquivo.Arquivo;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -25,6 +24,11 @@ public class PessoaModel implements Model {
     }
 
     @Override
+    public void excluir(String chave) throws Exception {
+        Arquivo.getInstance().excluir(chave, CAMINHO_PESSOA);
+    }
+    
+    @Override
     public Object recuperar(String chave) throws Exception {
         return Arquivo.getInstance().recuperar(chave, CAMINHO_PESSOA);
     }
@@ -38,5 +42,4 @@ public class PessoaModel implements Model {
     public void criarDiretorio() throws Exception {
         Arquivo.criarDiretorio(CAMINHO_PESSOA);
     }
-    
 }

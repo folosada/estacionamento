@@ -39,6 +39,11 @@ public class Arquivo<T> {
         oos.close();
     }
     
+    public void excluir(String chave, String diretorio) throws IOException{
+        Path arquivo = Paths.get(diretorio + separador + chave);
+        Files.deleteIfExists(arquivo);
+    }
+    
     public T recuperar(String chave, String diretorio) throws IOException, ClassNotFoundException{
         ObjectInputStream ois;
         Path arquivo = Paths.get(diretorio + separador + chave);        

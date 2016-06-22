@@ -22,6 +22,12 @@ public class PessoaController implements Controller {
     }
 
     @Override
+    public void excluir(String chave) throws Exception {
+        Model pessoaModel = ParkFactory.getFactory("Pessoa").createModel();
+        pessoaModel.excluir(chave);
+    }
+    
+    @Override
     public Object recuperar(String chave) throws Exception {
         Model pessoaModel = ParkFactory.getFactory("Pessoa").createModel();
         return pessoaModel.recuperar(chave);
@@ -32,5 +38,4 @@ public class PessoaController implements Controller {
         Model pessoaModel = ParkFactory.getFactory("Pessoa").createModel();
         return pessoaModel.recuperar();
     }
-    
 }

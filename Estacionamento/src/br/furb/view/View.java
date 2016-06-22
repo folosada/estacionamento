@@ -15,6 +15,8 @@ public interface View {
     
     public abstract void salvar(Object info);
     
+    public abstract void excluir(String chave);
+    
     public abstract Object recuperar(String chave);
     
     public abstract List recuperar();
@@ -24,5 +26,4 @@ public interface View {
     public abstract Object abreJanelaSelecao();
     
     public abstract void atualizaTabela();
-    
 }

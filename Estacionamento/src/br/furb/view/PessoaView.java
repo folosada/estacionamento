@@ -66,6 +66,7 @@ public class PessoaView extends javax.swing.JDialog implements View {
         lblPessoaNome = new javax.swing.JLabel();
         cpfJFormattedTextField = new javax.swing.JFormattedTextField();
         salvarJButton = new javax.swing.JButton();
+        excluirJButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Pessoas");
@@ -119,6 +120,13 @@ public class PessoaView extends javax.swing.JDialog implements View {
             }
         });
 
+        excluirJButton.setText("Excluir");
+        excluirJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirJButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -128,7 +136,10 @@ public class PessoaView extends javax.swing.JDialog implements View {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(salvarJButton)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(excluirJButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(salvarJButton))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblPessoaNome)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -153,7 +164,9 @@ public class PessoaView extends javax.swing.JDialog implements View {
                     .addComponent(cpfJFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cpfJLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(salvarJButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(salvarJButton)
+                    .addComponent(excluirJButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -187,6 +200,24 @@ public class PessoaView extends javax.swing.JDialog implements View {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_salvarJButtonActionPerformed
+
+    private void excluirJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirJButtonActionPerformed
+        try {
+            if (this.recuperar(cpfJFormattedTextField.getText()) != null){
+                String message = "Confirma a exclusão da pessoa selecionada?";
+                String title = "Confirmação";
+                int reply = JOptionPane.showConfirmDialog(this, message, title, JOptionPane.YES_NO_OPTION);
+                if (reply == JOptionPane.YES_OPTION){
+                    this.excluir(cpfJFormattedTextField.getText());
+                    this.atualizaTabela();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhum registro encontrado.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_excluirJButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,6 +265,7 @@ public class PessoaView extends javax.swing.JDialog implements View {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField cpfJFormattedTextField;
     private javax.swing.JLabel cpfJLabel;
+    private javax.swing.JButton excluirJButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblPessoaNome;
     private javax.swing.JTextField nomeJTextField;
@@ -251,6 +283,16 @@ public class PessoaView extends javax.swing.JDialog implements View {
         }
     }
 
+    @Override
+    public void excluir(String chave){
+        Controller pessoaController = ParkFactory.getFactory("Pessoa").createController();
+        try {
+            pessoaController.excluir(chave);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao excluir a pessoa!\n" + e.getMessage());
+        }
+    }
+    
     @Override
     public Object recuperar(String chave) {
         Controller pessoaController = ParkFactory.getFactory("Pessoa").createController();
@@ -271,7 +313,7 @@ public class PessoaView extends javax.swing.JDialog implements View {
         }
         return null;
     }
-
+    
     @Override
     public void abreJanela() {
         this.setVisible(true);
@@ -282,6 +324,7 @@ public class PessoaView extends javax.swing.JDialog implements View {
         nomeJTextField.setEnabled(false);
         cpfJFormattedTextField.setEnabled(false);
         salvarJButton.setEnabled(false);
+        excluirJButton.setEnabled(false);
         this.abreJanela();
         return this.recuperar(cpfJFormattedTextField.getText());
     }

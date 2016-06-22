@@ -22,6 +22,11 @@ public class VeiculoModel implements Model {
     public void salvar(Object info) throws Exception {
         Arquivo.getInstance().salvar(info, ((Veiculo) info).getPlaca(), CAMINHO_VEICULO);
     }
+    
+    @Override
+    public void excluir(String chave) throws Exception {
+        Arquivo.getInstance().excluir(chave, CAMINHO_VEICULO);
+    }
 
     @Override
     public Object recuperar(String chave) throws Exception {

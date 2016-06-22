@@ -66,6 +66,7 @@ public class VeiculoView extends javax.swing.JDialog implements View {
         lblVeiculoNome = new javax.swing.JLabel();
         placaJFormattedTextField = new javax.swing.JFormattedTextField();
         btnSalvar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Veículos");
@@ -100,6 +101,13 @@ public class VeiculoView extends javax.swing.JDialog implements View {
             }
         });
 
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,7 +129,9 @@ public class VeiculoView extends javax.swing.JDialog implements View {
                             .addComponent(placaJFormattedTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(153, Short.MAX_VALUE)
+                .addComponent(btnExcluir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSalvar)
                 .addContainerGap())
         );
@@ -137,7 +147,9 @@ public class VeiculoView extends javax.swing.JDialog implements View {
                     .addComponent(placaJLabel)
                     .addComponent(placaJFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSalvar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvar)
+                    .addComponent(btnExcluir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
@@ -167,6 +179,24 @@ public class VeiculoView extends javax.swing.JDialog implements View {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        try {
+            if (this.recuperar(placaJFormattedTextField.getText()) != null){
+                String message = "Confirma a exclusão do veículo selecionado?";
+                String title = "Confirmação";
+                int reply = JOptionPane.showConfirmDialog(this, message, title, JOptionPane.YES_NO_OPTION);
+                if (reply == JOptionPane.YES_OPTION){
+                    this.excluir(placaJFormattedTextField.getText());
+                    this.atualizaTabela();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhum registro encontrado.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,6 +241,7 @@ public class VeiculoView extends javax.swing.JDialog implements View {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblVeiculoNome;
@@ -230,6 +261,16 @@ public class VeiculoView extends javax.swing.JDialog implements View {
         }
     }
 
+    @Override
+    public void excluir(String chave){
+        Controller veiculoController = ParkFactory.getFactory("Veiculo").createController();
+        try {
+            veiculoController.excluir(chave);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao excluir o veículo!\n" + e.getMessage());
+        }
+    }
+    
     @Override
     public Object recuperar(String chave) {
         Controller veiculoController = ParkFactory.getFactory("Veiculo").createController();
@@ -260,6 +301,7 @@ public class VeiculoView extends javax.swing.JDialog implements View {
         nomeJTextField.setEnabled(false);
         placaJFormattedTextField.setEnabled(false);
         btnSalvar.setEnabled(false);            
+        btnExcluir.setEnabled(false);
         this.abreJanela();
         return this.recuperar(placaJFormattedTextField.getText());
     }
