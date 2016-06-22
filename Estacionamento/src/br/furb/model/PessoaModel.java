@@ -5,7 +5,7 @@
  */
 package br.furb.model;
 
-import br.furb.Pessoa;
+import br.furb.pojo.Pessoa;
 import br.furb.arquivo.Arquivo;
 import java.io.IOException;
 import java.nio.file.Paths;

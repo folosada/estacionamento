@@ -5,7 +5,7 @@
  */
 package br.furb.model;
 
-import br.furb.Estadia;
+import br.furb.pojo.Estadia;
 import br.furb.arquivo.Arquivo;
 import java.nio.file.Paths;
 import java.util.List;

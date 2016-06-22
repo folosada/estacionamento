@@ -5,7 +5,7 @@
  */
 package br.furb.view;
 
-import br.furb.Pessoa;
+import br.furb.pojo.Pessoa;
 import br.furb.controller.Controller;
 import br.furb.factory.ParkFactory;
 import java.util.LinkedList;

@@ -5,7 +5,7 @@
  */
 package br.furb.model;
 
-import br.furb.Veiculo;
+import br.furb.pojo.Veiculo;
 import br.furb.arquivo.Arquivo;
 import java.nio.file.Paths;
 import java.util.List;
