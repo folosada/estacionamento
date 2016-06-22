@@ -299,6 +299,7 @@ public class VeiculoView extends javax.swing.JDialog implements View {
         this.setVisible(true);
     }
     
+    @Override
     public Object abreJanelaSelecao() {
         nomeJTextField.setEnabled(false);
         placaJFormattedTextField.setEnabled(false);
